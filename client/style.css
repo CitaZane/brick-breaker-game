@@ -1,0 +1,129 @@
+*, *::after, *::after{
+    box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family:  'Press Start 2P', cursive;
+}
+
+:root{
+  /* Colors */
+    --highlightColor: aqua;
+    --overlayColor: rgba(128, 128, 128, 0.7);
+}
+
+
+#game-container {
+  height: 250px;
+  margin: auto;
+  margin-top: 20px;
+  transform-origin: top center;
+  aspect-ratio: 2 / 1;
+
+  border: 1px solid black;
+}
+
+.soundContainer{
+  position: absolute;
+  top: -20px;
+}
+
+/* --------------------------- start state screen --------------------------- */
+.startContainer{
+  position: absolute;
+  width: 100%;
+
+}
+
+.startContainer *{
+  text-align: center;
+}
+.startContainer h1{
+  margin-top:50px;
+}
+
+.menuContainer{
+  margin-top:80px;
+}
+
+.menuContainer *{
+  margin-top:10px;
+}
+
+.chosen{
+  color:var(--highlightColor);
+}
+
+/* ------------------------------- play state ------------------------------- */
+
+.paddle{
+  --x:225;
+
+  position: absolute;
+  background-color: black;
+  bottom: 5px;
+  left: calc(var(--x)*1px);
+
+  width: 50px;
+  height: 10px;
+}
+.ball{
+  --x: 250;
+  --y: 227;
+
+    background-color: black;
+    position: absolute;
+    top: calc(var(--y)*1px);
+    left: calc(var(--x)*1px);
+
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.healthContainer{
+  position:absolute;
+  top: 5px;
+}
+
+.scoreContainer{
+  position:absolute;
+  top: 25px;
+}
+/* ------------------------------- pause state ------------------------------ */
+.hide{
+  visibility: hidden;
+}
+.pauseContainer{
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+  background-color:var(--overlayColor);
+}
+.pauseContainer *{
+  margin-top: 100px;
+}
+
+/* ----------------------------- game over state ---------------------------- */
+
+.gameOverContainer{
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+  background-color:var(--overlayColor);
+}
+
+.gameOverContainer *{
+  text-align: center;
+}
+.gameOverContainer h1{
+  margin-top:50px;
+}
