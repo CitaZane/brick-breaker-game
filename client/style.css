@@ -1,8 +1,13 @@
+/* IMPORTS */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("./fonts/PressStart2P.ttf");
+}
+
 *,
 *::after,
 *::after {
   box-sizing: border-box;
-  margin: 0;
 }
 
 * {
@@ -25,13 +30,12 @@ body {
   position: relative;
   height: 720px;
   aspect-ratio: 16 / 9;
-  background-image: url("./graphics/background.png");
-  background-repeat: no-repeat;
+  background-image: url("../graphics/background.png");
   transform-origin: top left;
 }
 #game-container::after {
   content: " ";
-  background-image: url("./graphics/foreground.png");
+  background-image: url("../graphics/foreground.png");
   height: 57px;
   width: 1280px;
   position: absolute;
@@ -39,29 +43,29 @@ body {
   bottom: 0;
 }
 
-.soundContainer {
+/* .soundContainer {
   position: absolute;
   top: -20px;
-}
+} */
 
-/* --------------------------- start state screen --------------------------- */
-.startContainer {
+/* --------------------------- menu state screen --------------------------- */
+.menuContainer {
   position: absolute;
   width: 100%;
 }
 
-.startContainer * {
+.menuContainer * {
   text-align: center;
 }
-.startContainer h1 {
+.menuContainer h1 {
   margin-top: 50px;
 }
 
-.menuContainer {
+#menuChoices {
   margin-top: 80px;
 }
 
-.menuContainer * {
+#menuChoices * {
   margin-top: 10px;
 }
 
