@@ -2,7 +2,6 @@ import {VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from '../Constants.js'
 
 /* ----------------------- dynamic game screen resize ----------------------- */
     export const screenResize = () =>{
-        console.log("Resizeeee!!!!!!!!1")
         let gameContainer = document.getElementById('game-container');
         // Calculate difference between height and width
         let heightScale = window.innerHeight / VIRTUAL_HEIGHT;

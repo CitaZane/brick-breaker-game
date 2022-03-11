@@ -4,9 +4,8 @@
 
 
 /* --------------------------------- imports -------------------------------- */
-// import {VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from './modules/Constants.js'
 import StateMachine from './modules/StateMachine.js'
-import StartState from './modules/states/StartState.js'
+import MenuState from './modules/states/MenuState.js'
 import PlayState from './modules/states/PlayState.js'
 import GameOverState from './modules/states/GameOverState.js'
 import ServeState from './modules/states/ServeState.js'
@@ -14,12 +13,6 @@ import ServeState from './modules/states/ServeState.js'
 import Keypress from './modules/Keypress.js'
 import {screenResize} from './modules/utils/Resize.js'
 // import Sound from './modules/Sound.js'
-
-
-/* -------------------------------- constants ------------------------------- */
-// window.gameContainer = document.getElementById('game-container')
-// window.virtualHeight = 250;
-// window.virtualWidth = 500;
 
 /* --------------------------- initialize keyPress -------------------------- */
 window.keysPressed = new Keypress({});
@@ -39,15 +32,12 @@ document.addEventListener("keydown", (e) => window.keysPressed.press(e))
 
 /* ------------------------ state machine definition ------------------------ */
 window.stateMachine = new StateMachine({
-    start: new StartState(),
+    menu: new MenuState(),
     play: new PlayState(),
     gameOver: new GameOverState(),
     serve: new ServeState(),
 });
-window.stateMachine.change("start");
-
-
-
+window.stateMachine.change("menu");
 
 /* ----------------------- dynamic game screen resize ----------------------- */
 window.addEventListener("resize", screenResize)
@@ -73,14 +63,3 @@ function update(time) {
 }
 
 window.globalID = requestAnimationFrame(update)
-
-
-
-/* -------------------------------------------------------------------------- */
-/*                                  game plan                                 */
-/* -------------------------------------------------------------------------- */
-//Story mode
-//select level
-
-// story mode -> story -> continue -> (countdown) -> shoot(serve) -> play
-// Lose ball -> serve ->play
