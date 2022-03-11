@@ -4,6 +4,7 @@
 
 
 /* --------------------------------- imports -------------------------------- */
+// import {VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from './modules/Constants.js'
 import StateMachine from './modules/StateMachine.js'
 import StartState from './modules/states/StartState.js'
 import PlayState from './modules/states/PlayState.js'
@@ -11,12 +12,14 @@ import GameOverState from './modules/states/GameOverState.js'
 import ServeState from './modules/states/ServeState.js'
 
 import Keypress from './modules/Keypress.js'
-import Sound from './modules/Sound.js'
+import {screenResize} from './modules/utils/Resize.js'
+// import Sound from './modules/Sound.js'
+
 
 /* -------------------------------- constants ------------------------------- */
-window.gameContainer = document.getElementById('game-container')
-window.virtualHeight = 250;
-window.virtualWidth = 500;
+// window.gameContainer = document.getElementById('game-container')
+// window.virtualHeight = 250;
+// window.virtualWidth = 500;
 
 /* --------------------------- initialize keyPress -------------------------- */
 window.keysPressed = new Keypress({});
@@ -24,14 +27,14 @@ document.addEventListener("keydown", (e) => window.keysPressed.press(e))
 
 /* -------------------------- sound Initialization -------------------------- */
 // Keep sound key the same as the name
-window.sounds = new Sound({
-    wallHit: new Audio(),
-    paddleHit: new Audio(),
-    select: new Audio(), //select option
-    pause: new Audio(),
-    confirm: new Audio(),
-    lose: new Audio(),
-})
+// window.sounds = new Sound({
+//     wallHit: new Audio(),
+//     paddleHit: new Audio(),
+//     select: new Audio(), //select option
+//     pause: new Audio(),
+//     confirm: new Audio(),
+//     lose: new Audio(),
+// })
 
 
 /* ------------------------ state machine definition ------------------------ */
@@ -47,12 +50,7 @@ window.stateMachine.change("start");
 
 
 /* ----------------------- dynamic game screen resize ----------------------- */
-window.addEventListener("resize", () => {
-    let multiplyer = (window.innerWidth - 40) / window.virtualWidth;
-    gameContainer.style.transform = `scale(${multiplyer})`
-    let offset = (window.innerHeight - window.virtualHeight * multiplyer) / 2;
-    gameContainer.style.marginTop = `${offset}px`
-})
+window.addEventListener("resize", screenResize)
 window.dispatchEvent(new Event('resize'))
 
 
