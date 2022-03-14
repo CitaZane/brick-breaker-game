@@ -7,7 +7,11 @@ export default class Keypress {
     /* ---------------------------- register keypress --------------------------- */
     press(e) {
         this.#keysPressed[e.key] = true;
-        // console.log(this.#keysPressed)
+    }
+
+    /* ---------------------------- delete keypress --------------------------- */
+    unPress(e) {
+        this.#keysPressed[e.key] = false;
     }
 
     /* --------------- check if key has been pressed in last frame -------------- */
