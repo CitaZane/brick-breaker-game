@@ -1,22 +1,20 @@
+import {getHtml} from "../utils/getHtml.js";
+import {GAME_CONTAINER} from "../Constants.js";
 export default class GameOverState {
     enter() {
-        console.log("Enter Game Over state")
-        this.container = document.createElement("div")
-        this.container.setAttribute("class", "gameOverContainer")
-        // Title
-        let title = document.createElement('h1');
-        title.innerText = "GAME OVER";
-        title.setAttribute("class", "title")
-        this.container.appendChild(title)
-
-        gameContainer.appendChild(this.container)
+        getHtml("./modules/configs/gameOver.html")
+        .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
+        .then(()=> {
+        this.container = document.getElementsByClassName("gameOverContainer")[0]
+        })
     }
     update() {
         if (keysPressed.wasPressed("Enter") || keysPressed.wasPressed(" ")) {
-            stateMachine.change("start");
+            stateMachine.change("menu");
         }
     }
     exit() {
-        gameContainer.removeChild(this.container)
+        GAME_CONTAINER.removeChild(this.container);
+        keysPressed.clear();
     }
 } 

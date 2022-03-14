@@ -19,11 +19,17 @@
 :root {
   /* Colors */
   --highlightColor: aqua;
-  --overlayColor: rgba(128, 128, 128, 0.7);
+  --overlayColor: rgba(223, 223, 223, 0.7);
+  --backgroundColor: #f1d1a6;
+
+  /* Overlay settings */
+  --overlaySize: 92%;
+  --overlayOffset: 4%;
 }
 
 body {
   image-rendering: pixelated;
+  background-color: var(--backgroundColor);
 }
 
 #game-container {
@@ -115,12 +121,13 @@ body {
 }
 .pauseContainer {
   position: absolute;
-  width: 90%;
-  height: 90%;
-  top: 5%;
-  left: 5%;
+  width: var(--overlaySize);
+  height: var(--overlaySize);
+  top: var(--overlayOffset);
+  left: var(--overlayOffset);
   text-align: center;
   background-color: var(--overlayColor);
+  z-index: 2;
 }
 .pauseContainer * {
   margin-top: 100px;
@@ -130,10 +137,10 @@ body {
 
 .gameOverContainer {
   position: absolute;
-  width: 90%;
-  height: 90%;
-  top: 5%;
-  left: 5%;
+  width: var(--overlaySize);
+  height: var(--overlaySize);
+  top: var(--overlayOffset);
+  left: var(--overlayOffset);
   text-align: center;
   background-color: var(--overlayColor);
 }
@@ -144,3 +151,4 @@ body {
 .gameOverContainer h1 {
   margin-top: 50px;
 }
+  
