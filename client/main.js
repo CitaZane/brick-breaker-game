@@ -16,7 +16,8 @@ import {screenResize} from './modules/utils/Resize.js'
 
 /* --------------------------- initialize keyPress -------------------------- */
 window.keysPressed = new Keypress({});
-document.addEventListener("keydown", (e) => window.keysPressed.press(e))
+document.addEventListener("keydown", (e) => keysPressed.press(e))
+document.addEventListener("keyup", (e) => keysPressed.unPress(e))
 
 /* -------------------------- sound Initialization -------------------------- */
 // Keep sound key the same as the name
@@ -56,7 +57,7 @@ function update(time) {
         let delta = (time - lastUpdate) / 1000;
 
         window.stateMachine.update(delta);
-        keysPressed.clear();
+        // keysPressed.clear();
     }
     lastUpdate = time
     window.globalID = requestAnimationFrame(update)

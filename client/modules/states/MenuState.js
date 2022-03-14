@@ -32,13 +32,15 @@ export default class MenuState {
             // sounds.list.select.play();
             document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
             this.#chosen = (this.#chosen < this.#menu.length - 1) ? this.#chosen + 1 : 0;
-            document.getElementById(this.#menu[this.#chosen]).classList.add("chosen")
+            document.getElementById(this.#menu[this.#chosen]).classList.add("chosen");
+            keysPressed.clear();
         }
         if (keysPressed.wasPressed("ArrowUp")) {
             // sounds.list.select.play();
             document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
             this.#chosen = (this.#chosen === 0) ? this.#menu.length - 1 : this.#chosen - 1;
-            document.getElementById(this.#menu[this.#chosen]).classList.add("chosen")
+            document.getElementById(this.#menu[this.#chosen]).classList.add("chosen");
+            keysPressed.clear();
         }
         // On enter go to next state
         // Start Game
@@ -48,7 +50,7 @@ export default class MenuState {
                 paddle: new Paddle(),
                 health: 3,
                 score: 0,
-                path: "start"
+                path: "menu"
             });
         }
     }

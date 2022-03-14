@@ -1,26 +1,26 @@
 import Ball from "../Ball.js";
+import {GAME_CONTAINER} from "../Constants.js";
+import {getHtml} from "../utils/getHtml.js";
 
 export default class ServeState {
+
     enter(params) {
         this.paddle = params.paddle;
         this.health = params.health;
         this.score = params.score;
         this.ball = new Ball();
         // Create health, score, pause container
-        if (params.path === "start") {
-            createContainer("health", this.health);
-            createContainer("score", this.score);
-            createContainer("pause", "PAUSE");
+        if (params.path === "menu") {
+            this.createGameElements();
         }
     }
     update(delta) {
-        // Update paddle
+        // Update paddle and ball
         this.paddle.update(delta);
-        // Ball follows the paddle
-        this.ball.x = this.paddle.x + (this.paddle.width / 2) - this.ball.width / 2;
-        this.ball.y = this.paddle.y - this.ball.height;
+        this.ball.followPaddle(this.paddle)
+        
         if (keysPressed.wasPressed(" ")) {
-            sounds.list.confirm.play();
+            // sounds.list.confirm.play();
             stateMachine.change("play", {
                 paddle: this.paddle,
                 ball: this.ball,
@@ -31,28 +31,19 @@ export default class ServeState {
         // Esc -> back to start
         if (keysPressed.wasPressed("Escape")) {
             // Remove game elements
-            gameContainer.removeChild(document.querySelector(".ball"));
-            gameContainer.removeChild(document.querySelector(".paddle"));
-            gameContainer.removeChild(document.querySelector(".healthContainer"));
-            gameContainer.removeChild(document.querySelector(".scoreContainer"));
-            stateMachine.change("start");
+            GAME_CONTAINER.removeChild(document.querySelector(".ball"));
+            GAME_CONTAINER.removeChild(document.querySelector(".paddle"));
+            GAME_CONTAINER.removeChild(document.querySelector(".healthContainer"));
+            GAME_CONTAINER.removeChild(document.querySelector(".scoreContainer"));
+            stateMachine.change("menu");
         }
     }
     exit() {
         keysPressed.clear();
     }
-}
 
-function createContainer(name, value) {
-    let container = document.createElement("div")
-    if (name === "pause") container.classList.add("hide")
-    container.classList.add(`${name}Container`)
-
-    // Title
-    let content = document.createElement('div');
-    content.innerText = value;
-
-    content.setAttribute("id", name)
-    container.appendChild(content)
-    gameContainer.appendChild(container)
+    createGameElements() {
+        getHtml("./modules/configs/gameSetup.html")
+            .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
+    }
 }
