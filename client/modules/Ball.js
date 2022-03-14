@@ -40,28 +40,33 @@ export default class Ball {
     // launch ball off the paddle
     launch(){  
         this.#dx = getRandomInt(-200, 200);
-        this.#dy = getRandomInt(-100, -150);
+        this.#dy = -250
+        // this.#dy = getRandomInt(-200, -200);
     }
     outOfScreen() {
-        if (this.y > VIRTUAL_HEIGHT) {
+        if (this.y > VIRTUAL_HEIGHT-this.#height) {
             return true
         }
         return false
     }
     /* --------------------- simple AABB collision detection -------------------- */
-    collides(target) {
-
-        if (this.x < target.x + target.width &&
-            this.x + this.width > target.x &&
-            this.y < target.y + PADDLE_HIT_HEIGHT &&
-            this.y + this.height > target.y) {
-            // sounds.list.paddleHit.play();
-            return true
-        }
+    collides(paddle) {
+        if (this.x + this.#width > paddle.x && 
+            this.x< paddle.x + paddle.width &&
+            this.y < VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT &&
+            this.y + this.#height > VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT
+            ){
+                return true
+            }
         return false
     }
-    update(delta) {
-        if (!delta) delta = 0;
+    paddleHit(){
+        // place ball above Y axis, so it doesnt get stuck
+        this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
+        // Reverse Y velocity
+        this.#dy = -this.#dy;
+    }
+    update(delta = 0) {
         this.x = this.x + this.#dx * delta;
         this.y = this.y + this.#dy * delta;
 
@@ -71,8 +76,8 @@ export default class Ball {
             this.#dx = -this.#dx
             // sounds.list.wallHit.play();
         }
-        if (this.x >= VIRTUAL_WIDTH - this.width) {
-            this.x = VIRTUAL_WIDTH - this.width;
+        if (this.x >= VIRTUAL_WIDTH - this.#width) {
+            this.x = VIRTUAL_WIDTH - this.#width;
             this.#dx = -this.#dx
             // sounds.list.wallHit.play();
         }
