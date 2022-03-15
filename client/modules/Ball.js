@@ -50,11 +50,11 @@ export default class Ball {
         return false
     }
     /* --------------------- simple AABB collision detection -------------------- */
-    collides(paddle) {
-        if (this.x + this.#width > paddle.x && 
-            this.x< paddle.x + paddle.width &&
-            this.y < VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT &&
-            this.y + this.#height > VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT
+    collides(element) {
+        if (this.x + this.#width >element.x && 
+            this.x<element.x +element.width &&
+            this.y < element.y + element.height &&
+            this.y + this.#height > element.y
             ){
                 return true
             }

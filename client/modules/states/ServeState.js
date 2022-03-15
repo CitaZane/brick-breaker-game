@@ -1,5 +1,6 @@
 import Ball from "../Ball.js";
 import {GAME_CONTAINER} from "../Constants.js";
+import LevelMaker from "../LevelMaker.js";
 import {getHtml} from "../utils/getHtml.js";
 
 export default class ServeState {
@@ -12,6 +13,9 @@ export default class ServeState {
         // Create health, score, pause container
         if (params.path === "menu") {
             this.createGameElements();
+            // TEMPORARY CREATE GAME ELEMENTS
+            let level = new LevelMaker();
+            this.bricks = level.createMap();
         }
     }
     update(delta) {
@@ -24,6 +28,7 @@ export default class ServeState {
             stateMachine.change("play", {
                 paddle: this.paddle,
                 ball: this.ball,
+                bricks:this.bricks,
                 health: this.health,
                 score: this.score,
             });

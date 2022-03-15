@@ -1,12 +1,14 @@
-import {GAME_CONTAINER, VIRTUAL_WIDTH} from "./Constants.js";
+import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from "./Constants.js";
 
 export default class Paddle {
     #speed
     #dx
     constructor() {
         this.paddle = this.createPaddle();
+        this.y = VIRTUAL_HEIGHT- PADDLE_HIT_HEIGHT
         this.#speed = 600
-        this.width = parseFloat(getComputedStyle(this.paddle).getPropertyValue("width"))
+        this.width = parseFloat(getComputedStyle(this.paddle).getPropertyValue("width"));
+        this.height = parseFloat(getComputedStyle(this.paddle).getPropertyValue("height"))
         // Velocity
         this.#dx = 0
         this.reset();

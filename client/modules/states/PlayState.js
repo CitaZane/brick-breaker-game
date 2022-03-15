@@ -6,6 +6,7 @@ export default class PlayState {
     enter(params) {
         this.paddle = params.paddle;
         this.ball = params.ball;
+        this.bricks = params.bricks;
         this.health = params.health;
         this.score = params.score;
         this.ball.launch();
@@ -51,6 +52,13 @@ export default class PlayState {
                     removeElements();
                     stateMachine.change("gameOver");
                 }
+            }else{
+                // Detect collision across all bricks with the ball
+                this.bricks.forEach(brick => {
+                    if(brick.inPlay && this.ball.collides(brick)){
+                        brick.hit();
+                    }
+                });
             }
         }
         // Exit key press
