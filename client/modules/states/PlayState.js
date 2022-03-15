@@ -51,7 +51,9 @@ export default class PlayState {
                 } else {
                     // Game lost
                     removeElements();
-                    stateMachine.change("gameOver");
+                    stateMachine.change("gameOver", {
+                        score: this.score,
+                    });
                 }
             }else{
                 // Detect collision across all bricks with the ball
@@ -83,5 +85,6 @@ function removeElements() {
     GAME_CONTAINER.removeChild(document.querySelector(".healthContainer"));
     GAME_CONTAINER.removeChild(document.querySelector(".scoreContainer"));
     GAME_CONTAINER.removeChild(document.querySelector(".pauseContainer"));
+    GAME_CONTAINER.removeChild(document.querySelector(".brickContainer"));
 
 }
