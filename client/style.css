@@ -115,6 +115,22 @@ body {
   position: absolute;
   top: 25px;
 }
+
+.brick {
+  --x: 0;
+  --y: 0;
+  --xPos:0;
+  --yPos:0;
+
+  position: absolute;
+  background-image: url("../graphics/bricks.png");
+  background-position: calc(var(--xPos) * 1px) calc(var(--yPos) * 1px);
+  top: calc(var(--y) * 1px);
+  left: calc(var(--x) * 1px);
+
+  width: 40px;
+  height: 40px;
+}
 /* ------------------------------- pause state ------------------------------ */
 .hide {
   visibility: hidden;
@@ -151,4 +167,3 @@ body {
 .gameOverContainer h1 {
   margin-top: 50px;
 }
-  
