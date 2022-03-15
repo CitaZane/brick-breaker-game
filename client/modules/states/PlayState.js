@@ -35,7 +35,7 @@ export default class PlayState {
             this.ball.update(delta);
 
             if (this.ball.collides(this.paddle)) {
-                this.ball.paddleHit()
+                this.ball.paddleHit(this.paddle)
             }else if (this.ball.outOfScreen()) {
                 // sounds.list.lose.play();
                 if (this.health > 1) {

@@ -60,7 +60,16 @@ export default class Ball {
             }
         return false
     }
-    paddleHit(){
+    paddleHit(paddle){
+        // Change ball movement based on how it hit the paddle
+        // if hit the paddle on left side while moving left
+        let multiplyer = 4
+        if(this.x<paddle.x+(paddle.width/2) && paddle.dx<0){
+            this.#dx =50- multiplyer*(paddle.x + paddle.width/2 - this.x+this.#width/2);
+            // if hit the paddle on right side while moving right
+        }else if(this.x>paddle.x+(paddle.width/2) && paddle.dx>0){
+            this.#dx = 50+  multiplyer*Math.abs(paddle.x + paddle.width/2 -this.x)
+        }
         // place ball above Y axis, so it doesnt get stuck
         this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
         // Reverse Y velocity

@@ -2,7 +2,6 @@ import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from "
 
 export default class Paddle {
     #speed
-    #dx
     constructor() {
         this.paddle = this.createPaddle();
         this.y = VIRTUAL_HEIGHT- PADDLE_HIT_HEIGHT
@@ -10,7 +9,7 @@ export default class Paddle {
         this.width = parseFloat(getComputedStyle(this.paddle).getPropertyValue("width"));
         this.height = parseFloat(getComputedStyle(this.paddle).getPropertyValue("height"))
         // Velocity
-        this.#dx = 0
+        this.dx = 0
         this.reset();
     }
     
@@ -28,11 +27,11 @@ export default class Paddle {
     update(delta = 0) {
         // dx => calculate movement in this frame
         if (keysPressed.wasPressed("ArrowLeft")) {
-            this.#dx = - this.#speed
-            this.x = Math.max(0, this.x + this.#dx * delta)
+            this.dx = - this.#speed
+            this.x = Math.max(0, this.x + this.dx * delta)
         } else if (keysPressed.wasPressed("ArrowRight")) {
-            this.#dx = + this.#speed
-            this.x = Math.min(VIRTUAL_WIDTH - this.width, this.x + this.#dx * delta)
+            this.dx = + this.#speed
+            this.x = Math.min(VIRTUAL_WIDTH - this.width, this.x + this.dx * delta)
         }
     }
     // Creates initial paddle element
