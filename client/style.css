@@ -108,19 +108,28 @@ body {
 
 .healthContainer {
   position: absolute;
-  top: 5px;
+  top: 40px;
+  left: 15px;
+}
+.health {
+  background-image: url("../graphics/ball.png");
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .scoreContainer {
   position: absolute;
-  top: 25px;
+  top: 15px;
+  left: 15px;
 }
 
 .brick {
   --x: 0;
   --y: 0;
-  --xPos:0;
-  --yPos:0;
+  --xPos: 0;
+  --yPos: 0;
 
   position: absolute;
   background-image: url("../graphics/bricks.png");
@@ -130,6 +139,14 @@ body {
 
   width: 40px;
   height: 40px;
+}
+
+.brickContainer {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  top: 0;
+  left: 0;
 }
 /* ------------------------------- pause state ------------------------------ */
 .hide {

@@ -40,7 +40,8 @@ export default class PlayState {
                 // sounds.list.lose.play();
                 if (this.health > 1) {
                     // Ball lost
-                    document.getElementById("health").innerText = this.health - 1;
+                    let healthContainer = document.querySelector(".healthContainer")
+                    healthContainer.removeChild(document.querySelector(".health"))
                     stateMachine.change("serve", {
                         paddle: this.paddle,
                         health: this.health - 1,

@@ -102,6 +102,7 @@ export default class Ball {
         // Reverse Y velocity
         this.#dy = -this.#dy;
     }
+    // Main update - move the ball and bounce off the wals
     update(delta = 0) {
         this.x = this.x + this.#dx * delta;
         this.y = this.y + this.#dy * delta;

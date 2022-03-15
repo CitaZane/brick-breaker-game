@@ -2,7 +2,7 @@ import {GAME_CONTAINER, TILE_SIZE} from "./Constants.js";
 export default class Brick{
     #type
     #health
-    constructor(x,y) {
+    constructor(x,y, container) {
         this.brick = this.createBrick();
         this.#type = 0
         this.#health = 1
@@ -13,6 +13,7 @@ export default class Brick{
         this.inPlay = true
         this.brick.xPos = 0;
         this.brick.yPos = this.#type * TILE_SIZE
+        this.container = container
     }
     // Brick placment in game
     get left() {
@@ -46,7 +47,7 @@ export default class Brick{
     // changing its color otherwise.
     hit(){
         this.inPlay=false;
-        GAME_CONTAINER.removeChild(this.brick);
+        this.container.removeChild(this.brick);
     }
     createBrick(){
         let brick = document.createElement("div");
@@ -55,7 +56,7 @@ export default class Brick{
         return brick
     }
     draw(){
-        GAME_CONTAINER.appendChild(this.brick)
+        this.container.appendChild(this.brick)
         this.top = this.y
         this.left = this.x
     }
