@@ -12,6 +12,7 @@ export default class PlayState {
         this.ball.launch();
         // Get Pause container
         this.pauseContainer = document.querySelector(".pauseContainer")
+        this.scoreContainer = document.querySelector("#score")
 
     }
 
@@ -60,6 +61,8 @@ export default class PlayState {
                 this.bricks.forEach(brick => {
                     if(brick.inPlay && this.ball.collides(brick)){
                         brick.hit();
+                        this.score +=10
+                        this.scoreContainer.innerHTML = this.score
                         this.ball.brickHit(brick)
                     }
                 });
