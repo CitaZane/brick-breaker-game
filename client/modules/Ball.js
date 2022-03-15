@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT} from "./Constants.js";
+import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT, TILE_SIZE} from "./Constants.js";
 export default class Ball {
     #dx
     #dy
@@ -39,8 +39,9 @@ export default class Ball {
     }
     // launch ball off the paddle
     launch(){  
-        this.#dx = getRandomInt(-200, 200);
-        this.#dy = -250
+        this.#dx = 0
+        // this.#dx = getRandomInt(-200, 200);
+        this.#dy = -300
         // this.#dy = getRandomInt(-200, -200);
     }
     outOfScreen() {
@@ -60,14 +61,40 @@ export default class Ball {
             }
         return false
     }
+    brickHit(brick){
+        // change balls direction
+        // -- we check to see if the opposite side of our velocity is outside of the brick;
+        // -- if it is, we trigger a collision on that side. else we're within the X + width of
+        // -- the brick and should check to see if the top or bottom edge is outside of the brick,
+        // -- colliding on the top or bottom accordingly 
+        let shift = 2 // quick fix for corner collision
+        // left edge; only check if we're moving right
+        if (this.x + shift< brick.x && this.#dx>0){
+            this.#dx = -this.#dx
+            this.x = brick.x - this.#width
+        }else if(this.x + this.#width-shift >brick.x+brick.width && this.#dx<0){
+            // right edge; only check if we're moving left
+            this.#dx = -this.#dx
+            this.x = brick.x + TILE_SIZE
+        }else if(this.y<brick.y){
+            // top edge if no X collisions, always check
+            this.#dy = -this.#dy
+            this.y=brick.y - this.#height
+        }else{
+            // bottom edge if no X collisions or top collision, last possibility
+            this.#dy = -this.#dy
+            this.y=brick.y +TILE_SIZE
+        
+        }
+    }
     paddleHit(paddle){
         // Change ball movement based on how it hit the paddle
         // if hit the paddle on left side while moving left
         let multiplyer = 4
-        if(this.x<paddle.x+(paddle.width/2) && paddle.dx<0){
+        if(this.x<paddle.x+(paddle.width/2) ){
             this.#dx =50- multiplyer*(paddle.x + paddle.width/2 - this.x+this.#width/2);
             // if hit the paddle on right side while moving right
-        }else if(this.x>paddle.x+(paddle.width/2) && paddle.dx>0){
+        }else if(this.x>paddle.x+(paddle.width/2)){
             this.#dx = 50+  multiplyer*Math.abs(paddle.x + paddle.width/2 -this.x)
         }
         // place ball above Y axis, so it doesnt get stuck

@@ -15,17 +15,17 @@ export default class Brick{
         this.brick.yPos = this.#type * TILE_SIZE
     }
     // Brick placment in game
-    get x() {
+    get left() {
         return parseFloat(getComputedStyle(this.brick).getPropertyValue("--x"))
     }
-    set x(value) {
+    set left(value) {
         this.brick.style.setProperty("--x", value)
     }
 
-    get y() {
+    get top() {
         return parseFloat(getComputedStyle(this.brick).getPropertyValue("--y"))
     }
-    set y(value) {
+    set top(value) {
         this.brick.style.setProperty("--y", value)
     }
     // Tile texture placment in sprite sheet
@@ -56,5 +56,7 @@ export default class Brick{
     }
     draw(){
         GAME_CONTAINER.appendChild(this.brick)
+        this.top = this.y
+        this.left = this.x
     }
 }

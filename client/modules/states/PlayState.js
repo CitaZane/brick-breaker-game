@@ -57,6 +57,7 @@ export default class PlayState {
                 this.bricks.forEach(brick => {
                     if(brick.inPlay && this.ball.collides(brick)){
                         brick.hit();
+                        this.ball.brickHit(brick)
                     }
                 });
             }
