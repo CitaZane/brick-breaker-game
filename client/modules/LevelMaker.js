@@ -8,12 +8,12 @@ export default class LevelMaker{
         GAME_CONTAINER.appendChild(container)
         this.bricks = [];
         let rows = 5;
-        let columns = 10;
+        let columns = 25;
         let offsetx = (VIRTUAL_WIDTH - columns*TILE_SIZE) /2
 
         for(let x=0; x<columns; x++){
             for(let y =0; y<rows; y++){
-                let b = new Brick(x*TILE_SIZE + offsetx,y*TILE_SIZE, container)
+                let b = new Brick(x*TILE_SIZE + offsetx,y*TILE_SIZE,1, container)
                 this.bricks.push(b)
                 b.draw();
             }

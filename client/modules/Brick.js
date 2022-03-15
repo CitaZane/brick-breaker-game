@@ -2,17 +2,17 @@ import {GAME_CONTAINER, TILE_SIZE} from "./Constants.js";
 export default class Brick{
     #type
     #health
-    constructor(x,y, container) {
+    constructor(x,y, type, container) {
         this.brick = this.createBrick();
-        this.#type = 0
-        this.#health = 1
+        this.#type = type
+        this.#health = type
         this.x = x
         this.y = y
         this.height = TILE_SIZE
         this.width = TILE_SIZE
         this.inPlay = true
-        this.brick.xPos = 0;
-        this.brick.yPos = this.#type * TILE_SIZE
+        this.xPos = 0;
+        this.yPos = this.calculatePos();
         this.container = container
     }
     // Brick placment in game
@@ -43,11 +43,25 @@ export default class Brick{
     set yPos(value) {
         this.brick.style.setProperty("--yPos", value)
     }
+    // calculate initai yPosition in sprite sheet
+    calculatePos(){
+        let position = 0
+        for(let i = this.#type; i>0; i--){
+            position += i*TILE_SIZE
+        }
+        return position
+    }
     // Triggers a hit on the brick, taking it out of play if at 0 health or
     // changing its color otherwise.
     hit(){
-        this.inPlay=false;
-        this.container.removeChild(this.brick);
+        console.log(this.#health)
+        this.#health --
+        if(this.#health<0){
+            this.inPlay=false;
+            this.container.removeChild(this.brick);
+        }else{
+            this.yPos+=40
+        }
     }
     createBrick(){
         let brick = document.createElement("div");
