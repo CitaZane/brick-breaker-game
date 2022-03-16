@@ -11,7 +11,7 @@ import GameOverState from './modules/states/GameOverState.js'
 import ServeState from './modules/states/ServeState.js'
 
 import Keypress from './modules/Keypress.js'
-import {screenResize} from './modules/utils/Resize.js'
+import {screenResize} from './modules/utils.js'
 // import Sound from './modules/Sound.js'
 
 /* --------------------------- initialize keyPress -------------------------- */

@@ -125,28 +125,24 @@ body {
   left: 15px;
 }
 
-.brick {
-  --x: 0;
-  --y: 0;
-  --xPos: 0;
-  --yPos: 0;
-
-  position: absolute;
-  background-image: url("../graphics/bricks.png");
-  background-position: calc(var(--xPos) * 1px) calc(var(--yPos) * 1px);
-  top: calc(var(--y) * 1px);
-  left: calc(var(--x) * 1px);
-
-  width: 40px;
-  height: 40px;
-}
-
 .brickContainer {
   position: absolute;
   width: 1280px;
   height: 720px;
   top: 0;
   left: 0;
+}
+.brick {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tile {
+  --xPos: 0; 
+  --yPos: 0;
+  background-position: calc(var(--xPos) * 1px) calc(var(--yPos) * -1px);
+  width: 40px;
+  height: 40px;
 }
 /* ------------------------------- pause state ------------------------------ */
 .hide {
