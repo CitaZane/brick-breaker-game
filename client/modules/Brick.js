@@ -1,60 +1,31 @@
 import {GAME_CONTAINER, TILE_SIZE} from "./Constants.js";
+import Tile from "./Tile.js";
 export default class Brick{
-    #type
     #health
-    constructor(x,y, type, container) {
-        this.brick = this.createBrick();
-        this.#type = type
-        this.#health = type
+    #tiles
+    constructor(x,y, type, container,w,h) {
+
+        this.height = h*TILE_SIZE
+        this.width = w*TILE_SIZE
         this.x = x
         this.y = y
-        this.height = TILE_SIZE
-        this.width = TILE_SIZE
+
+        this.brick = this.createBrick();
+
+        this.type = type
+        this.#health = type
         this.inPlay = true
-        this.xPos = 0;
-        this.yPos = this.calculatePos();
+        this.#tiles = []
+        this.createTiles();
+        // this.xPos = 0;
+        // this.yPos = this.calculatePos();
         this.container = container
-    }
-    // Brick placment in game
-    get left() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--x"))
-    }
-    set left(value) {
-        this.brick.style.setProperty("--x", value)
+
     }
 
-    get top() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--y"))
-    }
-    set top(value) {
-        this.brick.style.setProperty("--y", value)
-    }
-    // Tile texture placment in sprite sheet
-    get xPos() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--xPos"))
-    }
-    set xPos(value) {
-        this.brick.style.setProperty("--xPos", value)
-    }
-
-    get yPos() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--yPos"))
-    }
-    set yPos(value) {
-        this.brick.style.setProperty("--yPos", value)
-    }
-    // calculate initai yPosition in sprite sheet
-    calculatePos(){
-        let position = 0
-        for(let i = this.#type; i>0; i--){
-            position += i*TILE_SIZE
-        }
-        return position
-    }
     // Triggers a hit on the brick, taking it out of play if at 0 health or
     // changing its color otherwise.
     hit(){
-        console.log(this.#health)
         this.#health --
         if(this.#health<0){
             this.inPlay=false;
@@ -63,15 +34,52 @@ export default class Brick{
             this.yPos+=40
         }
     }
+    // Creates the brick and sets height/ width and position on Game screen
     createBrick(){
         let brick = document.createElement("div");
-        brick.classList.add("brick")
-        // GAME_CONTAINER.appendChild(brick)
+        brick.classList.add("brick");
+        brick.style.setProperty("width", `${this.width}px`);
+        brick.style.setProperty("height", `${this.height}px`);
+        brick.style.setProperty("top", `${this.y}px`);
+        brick.style.setProperty("left", `${this.x}px`);
         return brick
     }
+    // Creates tiles and add to the brick
+    createTiles(){
+        for(let i= 0; i< this.width/TILE_SIZE * this.height/TILE_SIZE; i++){
+            let tile = new Tile
+            this.brick.appendChild(tile.tile)
+            this.#tiles.push(tile)
+        }
+    }
+
     draw(){
         this.container.appendChild(this.brick)
         this.top = this.y
         this.left = this.x
+        // For each tile find the position
+        this.#tiles.forEach(tile => {         
+            tile.calcPosition();  
+        });
+        // calculate the right tile
+        this.#tiles.forEach(currentTile => {  
+            let tileValue = 0;    
+            this.#tiles.forEach(target=>{
+                // Check if tile to north->west->east->south
+                // resource https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
+                if(target.pos.bottom === currentTile.pos.top && target.pos.right === currentTile.pos.right){
+                    tileValue+=1
+                }else if(target.pos.right === currentTile.pos.left&& target.pos.top === currentTile.pos.top){
+                    tileValue+=2
+                }else if(target.pos.left === currentTile.pos.right&& target.pos.top === currentTile.pos.top){
+                    tileValue+=4
+                }else if(target.pos.top === currentTile.pos.bottom && target.pos.right === currentTile.pos.right){
+                    tileValue+=8
+                }
+            })
+            console.log("Value", tileValue)
+            currentTile.addTexture(tileValue, this.type);
+        });
     }
+
 }

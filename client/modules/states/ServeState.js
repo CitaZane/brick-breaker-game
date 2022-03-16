@@ -1,7 +1,7 @@
 import Ball from "../Ball.js";
 import {GAME_CONTAINER} from "../Constants.js";
 import LevelMaker from "../LevelMaker.js";
-import {getHtml} from "../utils/getHtml.js";
+import {getHtml} from "../utils.js";
 
 export default class ServeState {
 
@@ -15,7 +15,7 @@ export default class ServeState {
             this.createGameElements();
             // TEMPORARY CREATE GAME ELEMENTS
             let level = new LevelMaker();
-            this.bricks = level.createMap();
+            this.bricks = level.createMap(1);
         }
     }
     update(delta) {
@@ -48,7 +48,7 @@ export default class ServeState {
     }
 
     createGameElements() {
-        getHtml("./modules/configs/gameSetup.html")
+        getHtml("./configs/gameSetup.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
     }
 }

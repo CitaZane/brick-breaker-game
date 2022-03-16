@@ -1,5 +1,6 @@
 import Brick from "./Brick.js";
 import { GAME_CONTAINER, TILE_SIZE, VIRTUAL_WIDTH } from "./Constants.js";
+import { fetchJson } from "./utils.js";
 
 export default class LevelMaker{
     createMap(level){
@@ -7,17 +8,18 @@ export default class LevelMaker{
         container.classList.add("brickContainer")
         GAME_CONTAINER.appendChild(container)
         this.bricks = [];
-        let rows = 5;
-        let columns = 25;
-        let offsetx = (VIRTUAL_WIDTH - columns*TILE_SIZE) /2
-
-        for(let x=0; x<columns; x++){
-            for(let y =0; y<rows; y++){
-                let b = new Brick(x*TILE_SIZE + offsetx,y*TILE_SIZE,1, container)
-                this.bricks.push(b)
-                b.draw();
+        // Get blueprint for level and generate bricks
+        fetchJson(`../levels/${level}.json`)
+        .then((res)=>{
+            // range over all bricks(types)
+            for (let type in res.bricks){
+                res.bricks[type].forEach(pos => {
+                    let b = new Brick(pos.x*TILE_SIZE ,pos.y*TILE_SIZE,type, container, pos.w, pos.h)
+                    this.bricks.push(b)
+                    b.draw();
+                });
             }
-        }
+        })
         return this.bricks
     }
 }
