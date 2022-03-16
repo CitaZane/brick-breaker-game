@@ -1,9 +1,9 @@
-import {getHtml} from "../utils/getHtml.js";
+import {getHtml} from "../utils.js";
 import {GAME_CONTAINER} from "../Constants.js";
 export default class GameOverState {
     enter(params) {
         this.score = params.score
-        getHtml("./modules/configs/gameOver.html")
+        getHtml("./configs/gameOver.html")
         .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
         .then(()=> {
         this.container = document.querySelector(".gameOverContainer")
