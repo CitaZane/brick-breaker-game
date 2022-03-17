@@ -17,8 +17,6 @@ export default class Brick{
         this.inPlay = true
         this.#tiles = []
         this.createTiles();
-        // this.xPos = 0;
-        // this.yPos = this.calculatePos();
         this.container = container
 
     }
@@ -31,7 +29,9 @@ export default class Brick{
             this.inPlay=false;
             this.container.removeChild(this.brick);
         }else{
-            this.yPos+=40
+            this.#tiles.forEach(tile => {
+                tile.hit()
+            });
         }
     }
     // Creates the brick and sets height/ width and position on Game screen
@@ -67,17 +67,16 @@ export default class Brick{
             this.#tiles.forEach(target=>{
                 // Check if tile to north->west->east->south
                 // resource https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
-                if(target.pos.bottom === currentTile.pos.top && target.pos.right === currentTile.pos.right){
+                if(Math.floor(target.pos.bottom) == Math.floor(currentTile.pos.top) && Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
                     tileValue+=1
-                }else if(target.pos.right === currentTile.pos.left&& target.pos.top === currentTile.pos.top){
+                }else if(Math.floor(target.pos.right) == Math.floor(currentTile.pos.left) && Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
                     tileValue+=2
-                }else if(target.pos.left === currentTile.pos.right&& target.pos.top === currentTile.pos.top){
+                }else if(Math.floor(target.pos.left) == Math.floor(currentTile.pos.right)&& Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
                     tileValue+=4
-                }else if(target.pos.top === currentTile.pos.bottom && target.pos.right === currentTile.pos.right){
+                }else if(Math.floor(target.pos.top) == Math.floor(currentTile.pos.bottom) && Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
                     tileValue+=8
                 }
             })
-            console.log("Value", tileValue)
             currentTile.addTexture(tileValue, this.type);
         });
     }

@@ -5,22 +5,9 @@ export default class Tile{
         this.tile = this.createTile();
         this.image= "url(../graphics/bricks.png)"
     }
-        // Tile texture placment in sprite sheet
-    get xPos() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--xPos"))
-    }
-    set xPos(value) {
-        this.brick.style.setProperty("--xPos", value)
-    }
-
-    get yPos() {
-        return parseFloat(getComputedStyle(this.brick).getPropertyValue("--yPos"))
-    }
-    set yPos(value) {
-        this.brick.style.setProperty("--yPos", value)
-    }
     calcPosition(){
-      this.pos=this.tile.getBoundingClientRect() ; 
+      this.pos=this.tile.getBoundingClientRect(); 
+      console.log(this.pos)
     }
     // Create html element for tile
     createTile(){
@@ -29,13 +16,17 @@ export default class Tile{
         return tile
     }
     addTexture(tileValue, type){
-        let yPosition = 0
+        this.y = 0
         for(let i = type; i>0; i--){
-            yPosition += i*TILE_SIZE
+            this.y += i*TILE_SIZE
         }
-        let x = tileValue * TILE_SIZE;
+        this.x = tileValue * TILE_SIZE;
         this.tile.style.backgroundImage = this.image; 
-        this.tile.style.backgroundPosition = `-${x}px  -${yPosition}px`
+        this.tile.style.backgroundPosition = `-${this.x}px  -${this.y}px`
+    }
+    hit(){
+        this.y +=TILE_SIZE
+        this.tile.style.backgroundPosition = `-${this.x}px  -${this.y}px`
     }
 
 

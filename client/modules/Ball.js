@@ -75,7 +75,7 @@ export default class Ball {
         }else if(this.x + this.#width-shift >brick.x+brick.width && this.#dx<0){
             // right edge; only check if we're moving left
             this.#dx = -this.#dx
-            this.x = brick.x + TILE_SIZE
+            this.x = brick.x + brick.width
         }else if(this.y<brick.y){
             // top edge if no X collisions, always check
             this.#dy = -this.#dy
@@ -83,7 +83,7 @@ export default class Ball {
         }else{
             // bottom edge if no X collisions or top collision, last possibility
             this.#dy = -this.#dy
-            this.y=brick.y +TILE_SIZE
+            this.y=brick.y +brick.height
         
         }
     }
