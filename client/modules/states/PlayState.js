@@ -10,6 +10,7 @@ export default class PlayState {
         this.health = params.health;
         this.score = params.score;
         this.ball.launch();
+        this.bricksInGame = this.bricks.length;
         // Get Pause container
         this.pauseContainer = document.querySelector(".pauseContainer")
         this.scoreContainer = document.querySelector("#score")
@@ -60,12 +61,17 @@ export default class PlayState {
                 // Detect collision across all bricks with the ball
                 this.bricks.forEach(brick => {
                     if(brick.inPlay && this.ball.collides(brick)){
-                        brick.hit();
+                        // Brick hit returns 1 if brick destroyed, 0 if not
+                        let result = brick.hit();
+                        this.bricksInGame -=result
                         this.score +=10
                         this.scoreContainer.innerHTML = this.score
                         this.ball.brickHit(brick)
                     }
                 });
+                if(this.bricksInGame == 0){
+                    console.log("win")
+                }
             }
         }
         // Exit key press

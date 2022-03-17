@@ -7,7 +7,6 @@ export default class Tile{
     }
     calcPosition(){
       this.pos=this.tile.getBoundingClientRect(); 
-      console.log(this.pos)
     }
     // Create html element for tile
     createTile(){

@@ -4,6 +4,8 @@ import { fetchJson } from "./utils.js";
 
 export default class LevelMaker{
     createMap(level){
+        let xOffset = 140;
+        let yOffset = 40;
         let container = document.createElement("div")
         container.classList.add("brickContainer")
         GAME_CONTAINER.appendChild(container)
@@ -14,7 +16,7 @@ export default class LevelMaker{
             // range over all bricks(types)
             for (let type in res.bricks){
                 res.bricks[type].forEach(pos => {
-                    let b = new Brick(pos.x*TILE_SIZE ,pos.y*TILE_SIZE,type, container, pos.w, pos.h)
+                    let b = new Brick(pos.x*TILE_SIZE+xOffset ,pos.y*TILE_SIZE+yOffset,type, container, pos.w, pos.h)
                     this.bricks.push(b)
                     b.draw();
                 });

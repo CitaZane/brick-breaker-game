@@ -28,10 +28,12 @@ export default class Brick{
         if(this.#health<0){
             this.inPlay=false;
             this.container.removeChild(this.brick);
+            return 1
         }else{
             this.#tiles.forEach(tile => {
                 tile.hit()
             });
+            return 0
         }
     }
     // Creates the brick and sets height/ width and position on Game screen
@@ -67,13 +69,17 @@ export default class Brick{
             this.#tiles.forEach(target=>{
                 // Check if tile to north->west->east->south
                 // resource https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
-                if(Math.floor(target.pos.bottom) == Math.floor(currentTile.pos.top) && Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
+                if(Math.floor(target.pos.bottom) == Math.floor(currentTile.pos.top) &&
+                 Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
                     tileValue+=1
-                }else if(Math.floor(target.pos.right) == Math.floor(currentTile.pos.left) && Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
+                }else if(Math.floor(target.pos.right) == Math.floor(currentTile.pos.left) &&
+                 Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
                     tileValue+=2
-                }else if(Math.floor(target.pos.left) == Math.floor(currentTile.pos.right)&& Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
+                }else if(Math.floor(target.pos.left) == Math.floor(currentTile.pos.right)&&
+                 Math.floor(target.pos.top) == Math.floor(currentTile.pos.top)){
                     tileValue+=4
-                }else if(Math.floor(target.pos.top) == Math.floor(currentTile.pos.bottom) && Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
+                }else if(Math.floor(target.pos.top) == Math.floor(currentTile.pos.bottom) &&
+                 Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
                     tileValue+=8
                 }
             })
