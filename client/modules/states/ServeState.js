@@ -4,18 +4,24 @@ import LevelMaker from "../LevelMaker.js";
 import {getHtml} from "../utils.js";
 
 export default class ServeState {
+    constructor(){
+        this.levelManager = new LevelMaker();
+    }
 
     enter(params) {
+        console.log("Serve")
         this.paddle = params.paddle;
         this.health = params.health;
         this.score = params.score;
         this.ball = new Ball();
+        this.level = params.level
         // Create health, score, pause container
         if (params.path === "menu") {
             this.createGameElements();
-            // TEMPORARY CREATE GAME ELEMENTS
-            let level = new LevelMaker();
-            this.bricks = level.createMap(1);
+            this.bricks = this.levelManager.createMap(this.level);
+        }
+        if (params.path === "victory"){
+             this.bricks = this.levelManager.createMap(this.level);
         }
     }
     update(delta) {
@@ -31,6 +37,7 @@ export default class ServeState {
                 bricks:this.bricks,
                 health: this.health,
                 score: this.score,
+                level:this.level
             });
         }
         // Esc -> back to start

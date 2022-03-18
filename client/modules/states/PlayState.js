@@ -4,11 +4,13 @@ export default class PlayState {
         this.paused = false;
     }
     enter(params) {
+        console.log("Play")
         this.paddle = params.paddle;
         this.ball = params.ball;
         this.bricks = params.bricks;
         this.health = params.health;
         this.score = params.score;
+        this.level = params.level;
         this.ball.launch();
         this.bricksInGame = this.bricks.length;
         // Get Pause container
@@ -48,7 +50,8 @@ export default class PlayState {
                         paddle: this.paddle,
                         health: this.health - 1,
                         score: this.score,
-                        path: "play"
+                        path: "play",
+                        level:this.level
                     });
                 } else {
                     // Game lost
@@ -75,7 +78,13 @@ export default class PlayState {
                     }
                 });
                 if(this.bricksInGame == 0){
-                    console.log("win")
+                    stateMachine.change("victory", {
+                        paddle: this.paddle,
+                        health: this.health,
+                        score: this.score,
+                        path: "play",
+                        level:this.level
+                    });
                 }
             }
         }

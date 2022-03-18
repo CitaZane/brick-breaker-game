@@ -50,7 +50,8 @@ export default class MenuState {
                 paddle: new Paddle(),
                 health: 3,
                 score: 0,
-                path: "menu"
+                path: "menu",
+                level: 1
             });
         }
     }
