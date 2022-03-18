@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, VIRTUAL_HEIGHT} from "../Constants.js";
+import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, TILE_SIZE, VIRTUAL_HEIGHT} from "../Constants.js";
 export default class PlayState {
     constructor() {
         this.paused = false;
@@ -64,7 +64,12 @@ export default class PlayState {
                         // Brick hit returns 1 if brick destroyed, 0 if not
                         let result = brick.hit();
                         this.bricksInGame -=result
-                        this.score +=10
+                        // Handle score
+                        if(result === 0){
+                            this.score += brick.type * 25 - (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *2
+                        }else{
+                            this.score += 100 + brick.type*50 -  (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *10
+                        }
                         this.scoreContainer.innerHTML = this.score
                         this.ball.brickHit(brick)
                     }
