@@ -1,0 +1,43 @@
+{
+  "level": 3,
+  "intro": [
+    "Pirate: Argghhhh! Mate, this is an excellent firs target.",
+    "Pirate: I have heard tales of burried gold and fountains of rum, I shall take this city! This is my desteny",
+    "Parrot: Oh, mate! The sea seems to be standing in your way!",
+    "Parrot: You see those blocks of sea salt? You shal destroy them to get to the city!"
+  ],
+  "bricks": {
+    "0": [
+      { "x": 0, "y": 0, "w": 1, "h": 3 },
+      { "x": 1, "y": 0, "w": 3, "h": 3 },
+      { "x": 4, "y": 0, "w": 1, "h": 3 },
+      { "x": 5, "y": 0, "w": 3, "h": 3 },
+      { "x": 8, "y": 0, "w": 3, "h": 1 },
+      { "x": 11, "y": 0, "w": 3, "h": 3 },
+      { "x": 14, "y": 0, "w": 3, "h": 1 },
+      { "x": 17, "y": 0, "w": 3, "h": 3 },
+      { "x": 20, "y": 0, "w": 1, "h": 3 },
+      { "x": 21, "y": 0, "w": 3, "h": 3 },
+      { "x": 24, "y": 0, "w": 1, "h": 3 },
+      { "x": 8, "y": 1, "w": 3, "h": 3 },
+      { "x": 14, "y": 1, "w": 3, "h": 3 },
+      { "x": 1, "y": 3, "w": 2, "h": 2 },
+      { "x": 3, "y": 3, "w": 3, "h": 3 },
+      { "x": 6, "y": 3, "w": 2, "h": 2 },
+      { "x": 11, "y": 3, "w": 3, "h": 1 },
+      { "x": 17, "y": 3, "w": 2, "h": 2 },
+      { "x": 19, "y": 3, "w": 3, "h": 3 },
+      { "x": 22, "y": 3, "w": 2, "h": 2 },
+      { "x": 8, "y": 4, "w": 1, "h": 3 },
+      { "x": 9, "y": 4, "w": 3, "h": 1 },
+      { "x": 12, "y": 4, "w": 1, "h": 3 },
+      { "x": 13, "y": 4, "w": 3, "h": 1 },
+      { "x": 16, "y": 4, "w": 1, "h": 3 },
+      { "x": 6, "y": 5, "w": 2, "h": 2 },
+      { "x": 9, "y": 5, "w": 3, "h": 3 },
+      { "x": 13, "y": 5, "w": 3, "h": 3 },
+      { "x": 17, "y": 5, "w": 2, "h": 2 },
+      { "x": 12, "y": 7, "w": 1, "h": 1 }
+    ]
+  }
+}

@@ -6,6 +6,8 @@ import {getHtml} from "../utils.js";
 export default class ServeState {
     constructor(){
         this.levelManager = new LevelMaker();
+        // 3 stages-> 1 story mode on, 0 last story, -1 story mode false
+        this.storyMode = 1;
     }
 
     enter(params) {
@@ -14,14 +16,22 @@ export default class ServeState {
         this.health = params.health;
         this.score = params.score;
         this.ball = new Ball();
-        this.level = params.level
-        // Create health, score, pause container
+        this.level = params.level;
+        // Create health, score, pause container, storyLine
         if (params.path === "menu") {
-            this.createGameElements();
-            this.bricks = this.levelManager.createMap(this.level);
+            getHtml("./configs/gameSetup.html")
+            .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
+            .then(()=>{
+                // Read the level blueprint and initialize the story and bricks
+                this.levelManager.mapLevel(this.level)
+                this.storyMode = 1;
+            })
+            
         }
         if (params.path === "victory"){
-             this.bricks = this.levelManager.createMap(this.level);
+            // Read the level blueprint and initialize the story and bricks
+            this.levelManager.mapLevel(this.level)
+            this.storyMode = 1;
         }
     }
     update(delta) {
@@ -30,15 +40,26 @@ export default class ServeState {
         this.ball.followPaddle(this.paddle)
         
         if (keysPressed.wasPressed(" ")) {
-            // sounds.list.confirm.play();
-            stateMachine.change("play", {
-                paddle: this.paddle,
-                ball: this.ball,
-                bricks:this.bricks,
-                health: this.health,
-                score: this.score,
-                level:this.level
-            });
+            keysPressed.clear();
+            if(this.storyMode == 1){
+                let last = this.levelManager.nextStory();
+                if(last === 1){
+                    this.storyMode = 0
+                }
+            }else if(this.storyMode == 0){
+                this.levelManager.hideStory();
+                this.storyMode--
+            }else{
+                // sounds.list.confirm.play();
+                stateMachine.change("play", {
+                    paddle: this.paddle,
+                    ball: this.ball,
+                    bricks:this.levelManager.bricks,
+                    health: this.health,
+                    score: this.score,
+                    level:this.level
+                });
+            }
         }
         // Esc -> back to start
         if (keysPressed.wasPressed("Escape")) {
@@ -52,10 +73,5 @@ export default class ServeState {
     }
     exit() {
         keysPressed.clear();
-    }
-
-    createGameElements() {
-        getHtml("./configs/gameSetup.html")
-            .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
     }
 }
