@@ -28,6 +28,7 @@
 }
 
 body {
+  height: 100vh;
   image-rendering: pixelated;
   background-color: var(--backgroundColor);
 }
@@ -138,9 +139,6 @@ body {
   flex-wrap: wrap;
 }
 .tile {
-  --xPos: 0;
-  --yPos: 0;
-  background-position: calc(var(--xPos) * 1px) calc(var(--yPos) * -1px);
   width: 40px;
   height: 40px;
 }
