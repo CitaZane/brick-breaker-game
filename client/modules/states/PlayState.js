@@ -11,8 +11,8 @@ export default class PlayState {
         this.health = params.health;
         this.score = params.score;
         this.level = params.level;
-        this.ball.launch();
-        this.bricksInGame = this.bricks.length;
+        this.ball.launch(); 
+        this.bricksInGame = false; // keeps tracks when all the bricks are destoyed
         // Get Pause container
         this.pauseContainer = document.querySelector(".pauseContainer")
         this.scoreContainer = document.querySelector("#score")
@@ -37,7 +37,6 @@ export default class PlayState {
         if (!this.paused) {
             this.paddle.update(delta);
             this.ball.update(delta);
-
             if (this.ball.collides(this.paddle)) {
                 this.ball.paddleHit(this.paddle)
             }else if (this.ball.outOfScreen()) {
@@ -61,12 +60,13 @@ export default class PlayState {
                     });
                 }
             }else{
+                this.bricksInGame = false;
                 // Detect collision across all bricks with the ball
                 this.bricks.forEach(brick => {
                     if(brick.inPlay && this.ball.collides(brick)){
                         // Brick hit returns 1 if brick destroyed, 0 if not
                         let result = brick.hit();
-                        this.bricksInGame -=result
+                        // this.bricksInGame -=result
                         // Handle score
                         if(result === 0){
                             this.score += brick.type * 25 - (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *2
@@ -76,8 +76,11 @@ export default class PlayState {
                         this.scoreContainer.innerHTML = this.score
                         this.ball.brickHit(brick)
                     }
+                    if(brick.inPlay){
+                        this.bricksInGame = true;
+                    }
                 });
-                if(this.bricksInGame == 0){
+                if(!this.bricksInGame){
                     stateMachine.change("victory", {
                         paddle: this.paddle,
                         health: this.health,
