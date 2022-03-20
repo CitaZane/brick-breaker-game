@@ -197,3 +197,22 @@ body {
 .gameOverContainer h1 {
   margin-top: 50px;
 }
+
+/* ----------------------------- victory state ---------------------------- */
+
+.victoryContainer {
+  position: absolute;
+  width: var(--overlaySize);
+  height: var(--overlaySize);
+  top: var(--overlayOffset);
+  left: var(--overlayOffset);
+  text-align: center;
+  background-color: var(--overlayColor);
+}
+
+.victoryContainer * {
+  text-align: center;
+}
+.victoryContainer h1 {
+  margin-top: 50px;
+}

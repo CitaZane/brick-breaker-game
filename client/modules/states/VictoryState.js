@@ -1,3 +1,5 @@
+import {getHtml} from "../utils.js";
+import {GAME_CONTAINER} from "../Constants.js";
 export default class VictoryState {
     enter(params) {
         console.log("Victory")
@@ -6,6 +8,11 @@ export default class VictoryState {
         this.health = params.health;
         this.score = params.score;
         this.level = params.level;
+                getHtml("./configs/victory.html")
+        .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
+        .then(()=> {
+        this.container = document.querySelector(".victoryContainer")
+        })
     }
     update() {
          // On enter go to next state
@@ -21,6 +28,7 @@ export default class VictoryState {
         }
     }
     exit() {
+        GAME_CONTAINER.removeChild(this.container);
         keysPressed.clear();
     }
 } 
