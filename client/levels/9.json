@@ -1,0 +1,11 @@
+{
+  "level": 9,
+  "intro": [
+    "Pirate: Oh, me bucko, how it can be, our strength our weapons, and our Corsair pride be on th' line, but th' city, while not fightin' back seems t' have an upper hand.",
+    "Parrot: I be knowin', they seem so indestructible now, but dern't worry, they will fall, they always do.",
+    "Pirate: Th' wicked uranium and th' enlightened brick. I would have taken this city and all th' treasures that it holds if it weren't fer them. Oh mate, I dern't be knowin' how long I can hold back."
+  ],
+  "bricks": {
+    "0": [{ "x": 11, "y": 0, "w": 3, "h": 3 }]
+  }
+}

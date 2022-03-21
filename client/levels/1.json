@@ -1,12 +1,11 @@
 {
   "level": 1,
   "intro": [
-    "Pirate: Argghhhh! Mate, this is an excellent first target.",
-    "Pirate: I have heard tales of burried gold and fountains of rum, I shall take this city! This is my desteny",
-    "Parrot: Oh, mate! The sea seems to be standing in your way!",
-    "Parrot: You see those blocks of sea salt? You shal destroy them to get to the city!"
+    "Pirate: Argghhhh! Mate, this be an excellent first target. i have heard tales o' burried gold and fountains o' rum, i shall take this city! Splice the mainbrace! This be me desteny!",
+    "Parrot: Oh, mate, ye scurvey dog! th' sea seems t' be standin' in yer way! Do ye see those blocks o' sea salt? ye shall destroy them t' get t' th' city!",
+    "Pirate: Ahoy, Matey! Get th'  Chase Gun ready. Let's destroy th' obstacles. Fire in the Hole!"
   ],
   "bricks": {
-    "0": [{ "x": 11, "y": 0, "w": 3, "h": 3 }]
+    "0": [{ "x": 8, "y": 0, "w": 6, "h": 6 }]
   }
 }

@@ -1,0 +1,11 @@
+{
+  "level": 7,
+  "intro": [
+    "Pirate: Oh, wicked Sillamae brick, i do not fear! Arrgh! Th' citizens o' th' city be just too calm. Can't they see me power and threat? th' people be not fightin' at all!",
+    "Parrot: Th' ancient tale must be true then. This red brick be th' jewel that 'olds th' ultimate knowledge and enlightenment. th' citizens must be under its spell.",
+    "Pirate: Then th' fight must go on! And hoist the mainsail! i will get th' treasures that this city holds. And all o' th' barrels o' rum!"
+  ],
+  "bricks": {
+    "0": [{ "x": 11, "y": 0, "w": 3, "h": 3 }]
+  }
+}

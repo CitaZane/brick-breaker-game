@@ -1,0 +1,11 @@
+{
+  "level": 6,
+  "intro": [
+    "Pirate: Oh, matey, there be somethin' evil about this here brick. It be 'idin' somethin' tht be fer sure.Well, i fear that it be wicked inside!",
+    "Parrot: I 'ave 'eard o' an ancient tale o' the red-colored jewel that there 'olds within the enlightenment an' ultimate knowledge. i do not belive that there this here simple brick be the long last jewel. It can not be.",
+    "Pirate: Ahoy, l'il buddy!  Let's finish this fight. To hell with th' wicked power and all th' mystery, let's take th' city! Fire in th' hole! Now!"
+  ],
+  "bricks": {
+    "0": [{ "x": 11, "y": 0, "w": 3, "h": 3 }]
+  }
+}
