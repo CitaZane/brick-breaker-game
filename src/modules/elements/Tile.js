@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, TILE_SIZE} from "./Constants.js";
+import {GAME_CONTAINER, TILE_SIZE} from "../Constants.js";
 
 export default class Tile{
     constructor(){

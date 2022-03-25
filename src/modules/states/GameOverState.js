@@ -1,6 +1,6 @@
 import {getHtml} from "../utils.js";
 import {GAME_CONTAINER} from "../Constants.js";
-// import Highscore from "../Highscores.js";
+
 export default class GameOverState {
     enter(params) {
         this.score = params.score

@@ -1,4 +1,4 @@
-import Ball from "../Ball.js";
+import Ball from "../elements/Ball.js";
 import {GAME_CONTAINER} from "../Constants.js";
 import LevelMaker from "../LevelMaker.js";
 import {getHtml} from "../utils.js";

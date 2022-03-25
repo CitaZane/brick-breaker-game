@@ -1,4 +1,4 @@
-import Paddle from "../Paddle.js";
+import Paddle from "../elements/Paddle.js";
 import {getHtml} from "../utils.js";
 import {GAME_CONTAINER} from "../Constants.js";
 // 

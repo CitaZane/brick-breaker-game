@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT, TILE_SIZE} from "./Constants.js";
+import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT, TILE_SIZE} from "../Constants.js";
 export default class Ball {
     #dx
     #dy

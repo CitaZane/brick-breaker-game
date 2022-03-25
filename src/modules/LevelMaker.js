@@ -1,4 +1,4 @@
-import Brick from "./Brick.js";
+import Brick from "./elements/Brick.js";
 import { GAME_CONTAINER, TILE_SIZE, VIRTUAL_WIDTH } from "./Constants.js";
 import { fetchJson } from "./utils.js";
 

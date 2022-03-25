@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from "./Constants.js";
+import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, VIRTUAL_HEIGHT, VIRTUAL_WIDTH} from "../Constants.js";
 
 export default class Paddle {
     #speed
