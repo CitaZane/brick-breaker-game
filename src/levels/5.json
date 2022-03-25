@@ -1,0 +1,12 @@
+{
+  "level": 5,
+  "intro": [
+    "Pirate: Oh, we be in trouble. th' ground be wide open. And th' green light be playin' some tricks with me. What be this mystery strength that lies beneath th' ground?",
+    "Parrot: Yeah, i hear it be a power o' pure uranium. It be somethin' to be feared.It be powerful, i hear tell, and evil. It makes yer mind wide open.",
+    "Pirate: My mind can be open, but me Corsair soul be strong and indestructible.",
+    "Parrot: Oh, Cap'n, i fearrr that there be not the end, the city 'as one last trick to the sky its sleeve- the Sillamäe red brick."
+  ],
+  "bricks": {
+    "0": [{ "x": 11, "y": 0, "w": 3, "h": 3 }]
+  }
+}

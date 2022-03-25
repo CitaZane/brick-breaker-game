@@ -1,0 +1,42 @@
+{
+  "level": 3,
+  "intro": [
+    "Pirate: Argghhhh! That were bein' a hassle. Th' nature seems t' be fightin' against us. But i feel we be gettin' closer!",
+    "Pirate: What be that light, that be blindin' me, to be sure? It be hard t' fight if ye cant see what ye be fightin' fer.",
+    "Parrot: Oh, matey, that be th' sun reflected from th' glass windows. Shiver me timbers! ye shall destroy th' glass t' see clearly again."
+  ],
+  "bricks": {
+    "0": [
+      { "x": 0, "y": 0, "w": 1, "h": 3 },
+      { "x": 1, "y": 0, "w": 3, "h": 3 },
+      { "x": 4, "y": 0, "w": 1, "h": 3 },
+      { "x": 5, "y": 0, "w": 3, "h": 3 },
+      { "x": 8, "y": 0, "w": 3, "h": 1 },
+      { "x": 11, "y": 0, "w": 3, "h": 3 },
+      { "x": 14, "y": 0, "w": 3, "h": 1 },
+      { "x": 17, "y": 0, "w": 3, "h": 3 },
+      { "x": 20, "y": 0, "w": 1, "h": 3 },
+      { "x": 21, "y": 0, "w": 3, "h": 3 },
+      { "x": 24, "y": 0, "w": 1, "h": 3 },
+      { "x": 8, "y": 1, "w": 3, "h": 3 },
+      { "x": 14, "y": 1, "w": 3, "h": 3 },
+      { "x": 1, "y": 3, "w": 2, "h": 2 },
+      { "x": 3, "y": 3, "w": 3, "h": 3 },
+      { "x": 6, "y": 3, "w": 2, "h": 2 },
+      { "x": 11, "y": 3, "w": 3, "h": 1 },
+      { "x": 17, "y": 3, "w": 2, "h": 2 },
+      { "x": 19, "y": 3, "w": 3, "h": 3 },
+      { "x": 22, "y": 3, "w": 2, "h": 2 },
+      { "x": 8, "y": 4, "w": 1, "h": 3 },
+      { "x": 9, "y": 4, "w": 3, "h": 1 },
+      { "x": 12, "y": 4, "w": 1, "h": 3 },
+      { "x": 13, "y": 4, "w": 3, "h": 1 },
+      { "x": 16, "y": 4, "w": 1, "h": 3 },
+      { "x": 6, "y": 5, "w": 2, "h": 2 },
+      { "x": 9, "y": 5, "w": 3, "h": 3 },
+      { "x": 13, "y": 5, "w": 3, "h": 3 },
+      { "x": 17, "y": 5, "w": 2, "h": 2 },
+      { "x": 12, "y": 7, "w": 1, "h": 1 }
+    ]
+  }
+}
