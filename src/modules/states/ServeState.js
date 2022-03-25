@@ -68,6 +68,11 @@ export default class ServeState {
             GAME_CONTAINER.removeChild(document.querySelector(".paddle"));
             GAME_CONTAINER.removeChild(document.querySelector(".healthContainer"));
             GAME_CONTAINER.removeChild(document.querySelector(".scoreContainer"));
+            GAME_CONTAINER.removeChild(document.querySelector(".storyContainer"));
+            let parent = document.querySelector(".brickContainer");
+             while (parent.lastChild) {
+            parent.removeChild(parent.lastChild);
+        }
             stateMachine.change("menu");
         }
     }
