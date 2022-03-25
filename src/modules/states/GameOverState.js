@@ -24,7 +24,7 @@ export default class GameOverState {
         }
     }
     update() {
-        if (keysPressed.wasPressed("Enter") || keysPressed.wasPressed(" ")) {
+        if (keysPressed.wasPressed("Enter")) {
             stateMachine.change("menu");
         }
     }
@@ -32,12 +32,6 @@ export default class GameOverState {
         GAME_CONTAINER.removeChild(this.container);
         keysPressed.clear();
     }
-    // getScore = async() =>{
-    //     console.log("Fetching")
-    //     fetch("http://localhost:3000/highscores")
-    //     .then(res => res.json())
-    //     .then(data => console.log("Into highscores",data))
-    // }
     scoreSubmit(e){
         // Prevent default submitting
         // Validate if there is name input (comming soon)

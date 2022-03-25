@@ -10,6 +10,7 @@ import PlayState from './modules/states/PlayState.js'
 import GameOverState from './modules/states/GameOverState.js'
 import ServeState from './modules/states/ServeState.js'
 import VictoryState from './modules/states/VictoryState.js'
+import HighscoreState from './modules/states/HighscoreState.js'
 
 import Keypress from './modules/Keypress.js'
 import {screenResize} from './modules/utils.js'
@@ -39,6 +40,7 @@ window.stateMachine = new StateMachine({
     gameOver: new GameOverState(),
     serve: new ServeState(),
     victory: new VictoryState(),
+    highscore : new HighscoreState(),
 });
 window.stateMachine.change("menu");
 

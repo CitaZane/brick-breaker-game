@@ -11,6 +11,7 @@ export default class MenuState {
     }
     /* --------------------- create start menu html elements -------------------- */
     enter() {
+        this.#chosen = 0;
         getHtml("./configs/mainMenu.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
             .then(()=> {
@@ -53,6 +54,11 @@ export default class MenuState {
                 path: "menu",
                 level: 1
             });
+        };
+        // On enter go to highscores
+        if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "highscores" || keysPressed.wasPressed("Enter") && this.#menu[this.#chosen] === "highscores") {
+            // sounds.list.confirm.play();
+            stateMachine.change("highscore");
         }
     }
 

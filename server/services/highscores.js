@@ -7,7 +7,9 @@ async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT name, score 
-    FROM highscores LIMIT ${offset},${config.listPerPage}`
+    FROM highscores 
+    ORDER BY score DESC
+    LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};
