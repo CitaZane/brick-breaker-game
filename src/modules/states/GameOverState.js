@@ -25,7 +25,7 @@ export default class GameOverState {
     }
     update() {
         if (keysPressed.wasPressed("Enter")) {
-            stateMachine.change("menu");
+            stateMachine.change("highscore");
         }
     }
     exit() {
