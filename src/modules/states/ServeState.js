@@ -11,7 +11,6 @@ export default class ServeState {
     }
 
     enter(params) {
-        console.log("Serve")
         this.paddle = params.paddle;
         this.health = params.health;
         this.score = params.score;
@@ -21,20 +20,11 @@ export default class ServeState {
         if (params.path === "menu") {
             getHtml("./configs/gameSetup.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
-            .then(()=>{
-                // Read the level blueprint and initialize the story and bricks
-                this.levelManager.mapLevel(this.level)
-                this.storyMode = 1;
-            })  
+            .then(()=> this.initLevel())  
         }
-        if (params.path === "victory"){
-            // Read the level blueprint and initialize the story and bricks
-            this.levelManager.mapLevel(this.level)
-            this.storyMode = 1;
-        }
+        if (params.path === "victory") this.initLevel();
     }
     update(delta) {
-        // Update paddle and ball
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
         /* ------------------------------ update story ----------------------------- */
@@ -42,39 +32,38 @@ export default class ServeState {
             keysPressed.clear();
             if(this.storyMode == 1){
                 let last = this.levelManager.nextStory();
-                if(last === 1){
-                    this.storyMode = 0
-                }
+                if(last === 1) this.storyMode = 0;
             }else if(this.storyMode == 0){
                 this.levelManager.hideStory();
                 this.storyMode--
             }else{
                 // sounds.list.confirm.play();
-                stateMachine.change("play", {
-                    paddle: this.paddle,
-                    ball: this.ball,
-                    bricks:this.levelManager.bricks,
-                    health: this.health,
-                    score: this.score,
-                    level:this.level,
-                    path:"serve"
-                });
+                stateMachine.change("play",  this.configureParams());
             }
         }
         /* ----------------------------- open pause menu ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
-            stateMachine.change("pause", {
-                    paddle: this.paddle,
-                    ball: this.ball,
-                    bricks:this.levelManager.bricks,
-                    health: this.health,
-                    score: this.score,
-                    level:this.level,
-                    path: "serve",
-            })
+            stateMachine.change("pause", this.configureParams())
         }
     }
     exit() {
         keysPressed.clear();
+    }
+    /* ---------------------------- helper functions ---------------------------- */
+    /* ------ Read the level blueprint and initialize the story and bricks ------ */
+    initLevel(){
+        this.levelManager.mapLevel(this.level)
+        this.storyMode = 1;
+    }
+    configureParams(){
+        return{
+            paddle: this.paddle,
+            ball: this.ball,
+            bricks:this.levelManager.bricks,
+            health: this.health,
+            score: this.score,
+            level:this.level,
+            path: "serve",
+        }
     }
 }

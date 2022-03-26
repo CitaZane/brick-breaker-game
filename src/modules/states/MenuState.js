@@ -1,5 +1,5 @@
 import Paddle from "../elements/Paddle.js";
-import {getHtml} from "../utils.js";
+import {createListformElements, getHtml, removeElements} from "../utils.js";
 import {GAME_CONTAINER} from "../Constants.js";
 // 
 export default class MenuState {
@@ -14,16 +14,7 @@ export default class MenuState {
         this.#chosen = 0;
         getHtml("./configs/mainMenu.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
-            .then(()=> {
-                this.container = document.getElementsByClassName("menuContainer")[0];
-                let choices = document.getElementById("menuChoices").childNodes;
-                const choiceArray = Array.from(choices);
-                for (let i = 0; i < choiceArray.length; i++) {
-                    if (choiceArray[i]?.id){
-                        this.#menu.push(choiceArray[i].id)
-                    }
-                }
-            })
+            .then(()=> this.#menu = createListformElements("menuChoices"))
     }
 
     /* ---------------------------- update strat menu --------------------------- */
@@ -65,7 +56,7 @@ export default class MenuState {
 
     /* ----------------------- remove start menu elements ----------------------- */
     exit() {
-        GAME_CONTAINER.removeChild(this.container);
+        removeElements(["menuContainer"])
         keysPressed.clear();
     }
 }

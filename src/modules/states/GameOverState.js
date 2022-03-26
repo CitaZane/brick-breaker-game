@@ -1,4 +1,4 @@
-import {getHtml} from "../utils.js";
+import {getHtml, removeElements} from "../utils.js";
 import {GAME_CONTAINER, URL} from "../Constants.js";
 
 export default class GameOverState {
@@ -49,8 +49,9 @@ export default class GameOverState {
         }
     }
     exit() {
-        GAME_CONTAINER.removeChild(document.querySelector(".enterHighscore"));
-        GAME_CONTAINER.removeChild(document.querySelector(".gameOverContainer"));
+        removeElements(["enterHighscore", "gameOverContainer"])
+        // GAME_CONTAINER.removeChild(document.querySelector(".enterHighscore"));
+        // GAME_CONTAINER.removeChild(document.querySelector(".gameOverContainer"));
         keysPressed.clear();
     }
     scoreSubmit(e){
@@ -70,6 +71,7 @@ export default class GameOverState {
         })
         .then(()=>console.log("Submitted",player, score))
     }
+    
     nextStory(){
         this.currentStory++
         document.querySelector("#storyText").innerHTML = this.story[this.currentStory];

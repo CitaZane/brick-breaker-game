@@ -1,22 +1,18 @@
 import {GAME_CONTAINER, URL} from "../Constants.js";
-import {getHtml} from "../utils.js";
+import {getHtml, removeChildElements} from "../utils.js";
 
 export default class HighscoreState {
     constructor(){
         this.page = 1;
     }
     enter() {
-        console.log("Into highscore")
-        // fetch high score data
-        // Create table for result
+        /* ----------------------- fetch data and create table ---------------------- */
         fetch(`${URL}/highscores`)
         .then((res)=>res.json())
         .then((data)=> this.generateTable(data))
 
     }
     update() {
-        // listen for arrow keys to get next 10 results
-         // Exit key press
         if (keysPressed.wasPressed("Escape")) {
             stateMachine.change("menu");
         }
@@ -52,9 +48,10 @@ export default class HighscoreState {
     }
     exit() {
         // clear leaderboard
-        GAME_CONTAINER.removeChild(this.container);
+        removeChildElements(["highscoreContainer"])
         keysPressed.clear();
     }
+    /* ---------------------------- helper functions ---------------------------- */
     generateTable(inp){
         getHtml("./configs/highscore.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
@@ -80,6 +77,6 @@ export default class HighscoreState {
 
     }
     clearTable(){
-        GAME_CONTAINER.removeChild(this.container);
+        removeChildElements(["highscoreContainer"])
     }
 } 
