@@ -11,6 +11,7 @@ import GameOverState from './modules/states/GameOverState.js'
 import ServeState from './modules/states/ServeState.js'
 import VictoryState from './modules/states/VictoryState.js'
 import HighscoreState from './modules/states/HighscoreState.js'
+import PauseState from './modules/states/PauseState.js'
 
 import Keypress from './modules/Keypress.js'
 import {screenResize} from './modules/utils.js'
@@ -37,6 +38,7 @@ document.addEventListener("keyup", (e) => keysPressed.unPress(e))
 window.stateMachine = new StateMachine({
     menu: new MenuState(),
     play: new PlayState(),
+    pause: new PauseState(),
     gameOver: new GameOverState(),
     serve: new ServeState(),
     victory: new VictoryState(),

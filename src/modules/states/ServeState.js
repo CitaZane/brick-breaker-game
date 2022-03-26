@@ -15,7 +15,7 @@ export default class ServeState {
         this.paddle = params.paddle;
         this.health = params.health;
         this.score = params.score;
-        this.ball = new Ball();
+        this.ball = (params.path=="pause") ? params.ball : new Ball();
         this.level = params.level;
         // Create health, score, pause container, storyLine
         if (params.path === "menu") {
@@ -25,8 +25,7 @@ export default class ServeState {
                 // Read the level blueprint and initialize the story and bricks
                 this.levelManager.mapLevel(this.level)
                 this.storyMode = 1;
-            })
-            
+            })  
         }
         if (params.path === "victory"){
             // Read the level blueprint and initialize the story and bricks
@@ -38,7 +37,7 @@ export default class ServeState {
         // Update paddle and ball
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
-        
+        /* ------------------------------ update story ----------------------------- */
         if (keysPressed.wasPressed(" ")) {
             keysPressed.clear();
             if(this.storyMode == 1){
@@ -57,23 +56,22 @@ export default class ServeState {
                     bricks:this.levelManager.bricks,
                     health: this.health,
                     score: this.score,
-                    level:this.level
+                    level:this.level,
+                    path:"serve"
                 });
             }
         }
-        // Esc -> back to start
+        /* ----------------------------- open pause menu ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
-            // Remove game elements
-            GAME_CONTAINER.removeChild(document.querySelector(".ball"));
-            GAME_CONTAINER.removeChild(document.querySelector(".paddle"));
-            GAME_CONTAINER.removeChild(document.querySelector(".healthContainer"));
-            GAME_CONTAINER.removeChild(document.querySelector(".scoreContainer"));
-            GAME_CONTAINER.removeChild(document.querySelector(".storyContainer"));
-            let parent = document.querySelector(".brickContainer");
-             while (parent.lastChild) {
-            parent.removeChild(parent.lastChild);
-        }
-            stateMachine.change("menu");
+            stateMachine.change("pause", {
+                    paddle: this.paddle,
+                    ball: this.ball,
+                    bricks:this.levelManager.bricks,
+                    health: this.health,
+                    score: this.score,
+                    level:this.level,
+                    path: "serve",
+            })
         }
     }
     exit() {

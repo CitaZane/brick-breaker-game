@@ -173,7 +173,7 @@ body {
   left: var(--overlayOffset);
   text-align: center;
   background-color: var(--overlayColor);
-  z-index: 2;
+  z-index: 6;
 }
 .pauseContainer * {
   margin-top: 100px;

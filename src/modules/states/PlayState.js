@@ -1,12 +1,5 @@
-import {GAME_CONTAINER, PADDLE_HIT_HEIGHT, TILE_SIZE, VIRTUAL_HEIGHT} from "../Constants.js";
+import {GAME_CONTAINER, TILE_SIZE} from "../Constants.js";
 export default class PlayState {
-    #chosen
-    #menu
-    constructor() {
-        this.paused = false;
-        this.#menu = [] // menu options generated from predifined html
-        this.#chosen = 0; // chosen option
-    }
     enter(params) {
         console.log("Play")
         this.paddle = params.paddle;
@@ -15,63 +8,27 @@ export default class PlayState {
         this.health = params.health;
         this.score = params.score;
         this.level = params.level;
-        this.ball.launch(); 
+        if(params.path == "serve")this.ball.launch(); 
         this.bricksInGame = false; // keeps tracks when all the bricks are destoyed
         
-        // Get Pause container
-        this.pauseContainer = document.querySelector(".pauseContainer")
         this.scoreContainer = document.querySelector("#score")
-
-        /* -------------------------- configure pause menu -------------------------- */
-        this.#chosen = 0;
-        let choices = document.getElementById("pauseMenuChoices").childNodes;
-        const choiceArray = Array.from(choices);
-        for (let i = 0; i < choiceArray.length; i++) {
-            if (choiceArray[i]?.id){
-                this.#menu.push(choiceArray[i].id)
-            }
-        }
-
     }
 
     update(delta) {
         /* ----------------------------- configure pause ---------------------------- */
-        if (keysPressed.wasPressed("Escape") && !this.paused) {
-            this.activatePause();
-            keysPressed.clear();
+        if (keysPressed.wasPressed("Escape")) {
+            stateMachine.change("pause", {
+                paddle: this.paddle,
+                    ball: this.ball,
+                    bricks:this.bricks,
+                    health: this.health,
+                    score: this.score,
+                    level:this.level,
+                    path: "play",
+            })
+        }
 
-            // Update Pause menu
-        } else if (keysPressed.wasPressed("Escape") && this.paused) {
-            this.deactivatePause()
-            keysPressed.clear();
-        }
-        if(this.paused){
-            // highlight chosen option
-            if (keysPressed.wasPressed("ArrowDown")) {
-                // sounds.list.select.play();
-                document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
-                this.#chosen = (this.#chosen < this.#menu.length - 1) ? this.#chosen + 1 : 0;
-                document.getElementById(this.#menu[this.#chosen]).classList.add("chosen");
-                keysPressed.clear();
-            }
-            if (keysPressed.wasPressed("ArrowUp")) {
-                // sounds.list.select.play();
-                document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
-                this.#chosen = (this.#chosen === 0) ? this.#menu.length - 1 : this.#chosen - 1;
-                document.getElementById(this.#menu[this.#chosen]).classList.add("chosen");
-                keysPressed.clear();
-            }
-            if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "pauseResume"){
-                this.deactivatePause();
-                keysPressed.clear();
-            } else if(keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "pauseQuit"){
-                keysPressed.clear();
-                removeElements();
-                stateMachine.change("menu");
-            }
-        }
         /* ---------------------------- Main game update ---------------------------- */
-        if (!this.paused) {
             this.paddle.update(delta);
             this.ball.update(delta);
             
@@ -80,7 +37,8 @@ export default class PlayState {
             }else if (this.ball.outOfScreen()) {
                 // sounds.list.lose.play();
                 if (this.health > 1) {
-                    // Ball lost
+                    /* -------------------------------- ball lost -------------------------------- */
+                    GAME_CONTAINER.removeChild(document.querySelector(".ball"));
                     let healthContainer = document.querySelector(".healthContainer")
                     healthContainer.removeChild(document.querySelector(".health"))
                     stateMachine.change("serve", {
@@ -91,8 +49,9 @@ export default class PlayState {
                         level:this.level
                     });
                 } else {
-                    // Game lost
+                    /* -------------------------------- Game lost ------------------------------- */
                     removeElements();
+                    GAME_CONTAINER.removeChild(document.querySelector(".ball"));
                     stateMachine.change("gameOver", {
                         score: this.score,
                         level:this.level
@@ -100,12 +59,12 @@ export default class PlayState {
                 }
             }else{
                 this.bricksInGame = false;
-                // Detect collision across all bricks with the ball
+                /* ------------ Detect collision across all bricks with the ball ------------ */
                 this.bricks.forEach(brick => {
                     if(brick.inPlay && this.ball.collides(brick)){
                         // Brick hit returns 1 if brick destroyed, 0 if not
                         let result = brick.hit();
-                        // Handle score
+                        /* ------------------------------ score hadling ----------------------------- */
                         if(result === 0){
                             this.score += brick.type * 25 - (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *2
                         }else{
@@ -119,6 +78,7 @@ export default class PlayState {
                     }
                 });
                 if(!this.bricksInGame){
+                    GAME_CONTAINER.removeChild(document.querySelector(".ball"));
                     stateMachine.change("victory", {
                         paddle: this.paddle,
                         health: this.health,
@@ -128,7 +88,7 @@ export default class PlayState {
                     });
                 }
             }
-        }
+
         // Exit key press
         if (keysPressed.wasPressed("Escape")) {
             removeElements();
@@ -138,17 +98,9 @@ export default class PlayState {
 
 
     exit() {
-        GAME_CONTAINER.removeChild(document.querySelector(".ball"));
+        // GAME_CONTAINER.removeChild(document.querySelector(".ball"));
+        keysPressed.clear();
     }
-    activatePause(){
-        this.paused = true
-        this.pauseContainer.classList.remove("hide")
-    }
-    deactivatePause(){
-        this.paused = false
-        this.pauseContainer.classList.add("hide")
-    }
-
 }
 
 function removeElements() {
