@@ -26,10 +26,20 @@ export default class Brick{
     hit(){
         this.#health --
         if(this.#health<0){
+            if (this.type == 2){
+                sounds.list.glassBrickDestroyed.play()
+                sounds.list.glassBrickDestroyed.currentTime = 0;
+            }else {
+                sounds.list.brickDestroyed.play();
+                sounds.list.brickDestroyed.currentTime = 0;}
+            sounds.list.brickDestroyed.play();
+            sounds.list.brickDestroyed.currentTime = 0;
             this.inPlay=false;
             this.container.removeChild(this.brick);
             return 1
         }else{
+            sounds.list.brickHit.play();
+            sounds.list.brickHit.currentTime = 0;
             this.#tiles.forEach(tile => {
                 tile.hit()
             });

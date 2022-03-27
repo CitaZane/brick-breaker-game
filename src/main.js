@@ -15,7 +15,7 @@ import PauseState from './modules/states/PauseState.js'
 
 import Keypress from './modules/Keypress.js'
 import {screenResize} from './modules/utils.js'
-// import Sound from './modules/Sound.js'
+import Sound from './modules/Sound.js'
 
 /* --------------------------- initialize keyPress -------------------------- */
 window.keysPressed = new Keypress({});
@@ -24,14 +24,20 @@ document.addEventListener("keyup", (e) => keysPressed.unPress(e))
 
 /* -------------------------- sound Initialization -------------------------- */
 // Keep sound key the same as the name
-// window.sounds = new Sound({
-//     wallHit: new Audio(),
-//     paddleHit: new Audio(),
-//     select: new Audio(), //select option
-//     pause: new Audio(),
-//     confirm: new Audio(),
-//     lose: new Audio(),
-// })
+window.sounds = new Sound({
+    wallHit: new Audio(),
+    paddleHit: new Audio(),
+    brickHit:new Audio(),
+    brickDestroyed: new Audio(),
+    glassBrickDestroyed: new Audio(),
+    ballShoot: new Audio(),
+    loseBall: new Audio(),
+    loseGame: new Audio(),
+    select: new Audio(), //select option
+    pause: new Audio(),
+    confirm: new Audio(),
+    victory: new Audio(),
+}, new Audio())
 
 
 /* ------------------------ state machine definition ------------------------ */

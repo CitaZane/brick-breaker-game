@@ -31,18 +31,21 @@ export default class ServeState {
         if (keysPressed.wasPressed(" ")) {
             keysPressed.clear();
             if(this.storyMode == 1){
+                sounds.list.confirm.play();
                 let last = this.levelManager.nextStory();
                 if(last === 1) this.storyMode = 0;
             }else if(this.storyMode == 0){
+                sounds.list.confirm.play();
                 this.levelManager.hideStory();
                 this.storyMode--
             }else{
-                // sounds.list.confirm.play();
+                sounds.list.ballShoot.play();
                 stateMachine.change("play",  this.configureParams());
             }
         }
         /* ----------------------------- open pause menu ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
+            sounds.list.pause.play();
             stateMachine.change("pause", this.configureParams())
         }
     }

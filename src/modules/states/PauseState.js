@@ -17,24 +17,26 @@ export default class PauseState {
     }
     update() {
         if (keysPressed.wasPressed("ArrowDown")) {
+            sounds.list.select.play();
             keysPressed.clear();
-                // sounds.list.select.play();
-                document.getElementById(this.menu[this.chosen]).classList.remove("chosen")
-                this.chosen = (this.chosen < this.menu.length - 1) ? this.chosen + 1 : 0;
-                document.getElementById(this.menu[this.chosen]).classList.add("chosen");
+            document.getElementById(this.menu[this.chosen]).classList.remove("chosen")
+            this.chosen = (this.chosen < this.menu.length - 1) ? this.chosen + 1 : 0;
+            document.getElementById(this.menu[this.chosen]).classList.add("chosen");
         }
         if (keysPressed.wasPressed("ArrowUp")) {
             keysPressed.clear();
-            // sounds.list.select.play();
+            sounds.list.select.play();
             document.getElementById(this.menu[this.chosen]).classList.remove("chosen")
             this.chosen = (this.chosen === 0) ? this.menu.length - 1 : this.chosen - 1;
             document.getElementById(this.menu[this.chosen]).classList.add("chosen");
         }
         if ( keysPressed.wasPressed(" ") && this.menu[this.chosen] === "pauseResume"){
             keysPressed.clear();
+            sounds.list.confirm.play();
             stateMachine.change(this.path, this.params);
         } else if(keysPressed.wasPressed(" ") && this.menu[this.chosen] === "pauseQuit"){
             keysPressed.clear();
+            sounds.list.confirm.play();
             removeElem();
             stateMachine.change("menu");
         }

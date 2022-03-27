@@ -45,6 +45,7 @@ export default class GameOverState {
                 }
             }
         if (keysPressed.wasPressed("Enter")) {
+            sounds.list.highscore.play()
             stateMachine.change("highscore");
         }
     }

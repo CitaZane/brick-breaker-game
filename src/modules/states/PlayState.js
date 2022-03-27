@@ -15,6 +15,7 @@ export default class PlayState {
     update(delta) {
         /* ----------------------------- configure pause ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
+            sounds.list.pause.play();
             stateMachine.change("pause", this.configureParams());
         }
 
@@ -27,12 +28,13 @@ export default class PlayState {
             this.ball.paddleHit(this.paddle)
         }else if (this.ball.outOfScreen()) {
             /* -------------------------------- ball lost -------------------------------- */
-            // sounds.list.lose.play();
             if (this.health > 1) {
+                sounds.list.loseBall.play()
                 removeElements(["ball"])
-                this.lostHealth(); 
+                this.losthHealth(); 
                 stateMachine.change("serve", this.configureParams());
             } else {
+                sounds.list.loseGame.play()
                 /* -------------------------------- Game lost ------------------------------- */
                 removeElements(["paddle", "healthContainer", "scoreContainer", "pauseContainer", "ball"]);
                 removeChildElements("brickContainer");
@@ -50,6 +52,7 @@ export default class PlayState {
                 if(brick.inPlay) this.bricksInGame = true; // keep track when all bricks are destroyed
             });
                 if(!this.bricksInGame){
+                sounds.list.victory.play();
                 removeElements(["ball"])
                 stateMachine.change("victory", this.configureParams());
             }
@@ -59,7 +62,7 @@ export default class PlayState {
     exit() {
         keysPressed.clear();
     }
-    
+
     /* ----------------------------- helper function ---------------------------- */
     losthHealth(){
         let healthContainer = document.querySelector(".healthContainer")

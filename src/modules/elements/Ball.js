@@ -88,6 +88,7 @@ export default class Ball {
         }
     }
     paddleHit(paddle){
+        sounds.list.paddleHit.play()
         // Change ball movement based on how it hit the paddle
         // if hit the paddle on left side while moving left
         let multiplyer = 4
@@ -111,17 +112,17 @@ export default class Ball {
         if (this.x <= 0) {
             this.x = 0;
             this.#dx = -this.#dx
-            // sounds.list.wallHit.play();
+            sounds.list.wallHit.play();
         }
         if (this.x >= VIRTUAL_WIDTH - this.#width) {
             this.x = VIRTUAL_WIDTH - this.#width;
             this.#dx = -this.#dx
-            // sounds.list.wallHit.play();
+            sounds.list.wallHit.play();
         }
         if (this.y <= 0) {
             this.y = 0;
             this.#dy = -this.#dy;
-            // sounds.list.wallHit.play();
+            sounds.list.wallHit.play();
         }
     }
     createBall() {
@@ -130,9 +131,4 @@ export default class Ball {
         GAME_CONTAINER.appendChild(ball)
         return ball
     }  
-}
-
-//  randomizer MIN-MAX
-function getRandomInt(min, max) {
-    return Math.random() * (max - min) + min;
 }
