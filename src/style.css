@@ -216,3 +216,42 @@ body {
 .victoryContainer h1 {
   margin-top: 50px;
 }
+/* ----------------------------- settings state ----------------------------- */
+.settingsContainer {
+  position: absolute;
+  width: var(--overlaySize);
+  height: var(--overlaySize);
+  top: var(--overlayOffset);
+  left: var(--overlayOffset);
+  text-align: center;
+}
+.controlsImg {
+  display: inline-block;
+  width: 220px;
+  height: 270px;
+  background-image: url("../graphics/controlls.png");
+}
+.controlsDesc {
+  height: 270px;
+  display: inline-block;
+}
+.controlsDesc * {
+  margin-bottom: 90px;
+  margin-top: 20px;
+}
+
+.volumeControl::before {
+  content: "🞀";
+  position: absolute;
+  height: 120%;
+  left: 380px;
+}
+.volumeControl::after {
+  content: "🞂";
+  position: absolute;
+  height: 100%;
+  right: 380px;
+}
+.volume {
+  position: relative;
+}
