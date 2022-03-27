@@ -12,6 +12,7 @@ import ServeState from './modules/states/ServeState.js'
 import VictoryState from './modules/states/VictoryState.js'
 import HighscoreState from './modules/states/HighscoreState.js'
 import PauseState from './modules/states/PauseState.js'
+import SettingsState from './modules/states/SettingsState.js'
 
 import Keypress from './modules/Keypress.js'
 import {screenResize} from './modules/utils.js'
@@ -43,6 +44,7 @@ window.sounds = new Sound({
 /* ------------------------ state machine definition ------------------------ */
 window.stateMachine = new StateMachine({
     menu: new MenuState(),
+    settings : new SettingsState(),
     play: new PlayState(),
     pause: new PauseState(),
     gameOver: new GameOverState(),
@@ -69,7 +71,6 @@ function update(time) {
         let delta = (time - lastUpdate) / 1000;
 
         window.stateMachine.update(delta);
-        // keysPressed.clear();
     }
     lastUpdate = time
     window.globalID = requestAnimationFrame(update)
