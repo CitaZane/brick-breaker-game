@@ -13,7 +13,6 @@ export default class Stats{
     updateTimeBonus(){
         this.timeBonus = Math.max(Math.round((90000 - this.time)/100),0)
         this.score += this.timeBonus;
-        this.renderTimeBonus();
     }
     updateHealth(param){
         this.health +=param

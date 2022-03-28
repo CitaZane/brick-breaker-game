@@ -36,7 +36,7 @@ export default class PlayState {
             } else {
                 sounds.list.loseGame.play()
                 /* -------------------------------- Game lost ------------------------------- */
-                removeElements(["paddle", "healthContainer", "scoreContainer", "pauseContainer", "ball"]);
+                removeElements(["paddle", "healthContainer", "scoreContainer", "pauseContainer","timeContainer", "ball"]);
                 removeChildElements("brickContainer");
                 stateMachine.change("gameOver", this.configureParams());
             }

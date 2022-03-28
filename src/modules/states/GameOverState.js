@@ -40,7 +40,7 @@ export default class GameOverState {
                         this.container = document.querySelector(".enterHighscore");
                         const scoreForm = document.querySelector("#highscoreForm");
                         scoreForm.addEventListener('submit', this.scoreSubmit)
-                        scoreForm.setAttribute('score', this.score); // adding score to form data field
+                        scoreForm.setAttribute('score', this.stats.score); // adding score to form data field
                     })
                 }
             }

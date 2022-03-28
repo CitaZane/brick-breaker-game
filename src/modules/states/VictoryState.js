@@ -8,7 +8,10 @@ export default class VictoryState {
         this.level = params.level;
         getHtml("./configs/victory.html")
         .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
-        .then(()=> this.stats.updateTimeBonus())
+        .then(()=>{
+            this.stats.updateTimeBonus();
+            this.stats.renderTimeBonus();
+        })
     }
     update() {
          // On enter go to next state
