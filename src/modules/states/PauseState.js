@@ -47,7 +47,7 @@ export default class PauseState {
     }
 } 
 function removeElem() {
-    removeElements(["paddle", "healthContainer", "scoreContainer", "pauseContaner", "storyContainer", "ball"]);
+    removeElements(["paddle", "healthContainer", "scoreContainer", "pauseContaner", "storyContainer", "ball", "timeContainer"]);
     let parent = document.querySelector(".brickContainer");
       while (parent.lastChild) {
         parent.removeChild(parent.lastChild);

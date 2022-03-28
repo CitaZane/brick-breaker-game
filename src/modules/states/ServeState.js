@@ -11,12 +11,12 @@ export default class ServeState {
     }
 
     enter(params) {
+        console.log("Enter Serve")
+        console.log(params.level)
         this.paddle = params.paddle;
-        this.health = params.health;
-        this.score = params.score;
+        this.stats = params.stats;
         this.ball = (params.path=="pause") ? params.ball : new Ball();
         this.level = params.level;
-        this.time = params.time;
         // Create health, score, pause container, storyLine
         if (params.path === "menu") {
             getHtml("./configs/gameSetup.html")
@@ -64,9 +64,7 @@ export default class ServeState {
             paddle: this.paddle,
             ball: this.ball,
             bricks:this.levelManager.bricks,
-            health: this.health,
-            score: this.score,
-            time: this.time,
+            stats :this.stats,
             level:this.level,
             path: "serve",
         }

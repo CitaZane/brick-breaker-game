@@ -13,6 +13,7 @@ export default class Brick{
         this.brick = this.createBrick();
 
         this.type = type
+        this.value = (this.height/TILE_SIZE)*(this.width/TILE_SIZE)
         this.#health = type
         this.inPlay = true
         this.#tiles = []

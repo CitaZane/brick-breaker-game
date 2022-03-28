@@ -1,6 +1,7 @@
 import Paddle from "../elements/Paddle.js";
 import {createListformElements, getHtml, removeElements} from "../utils.js";
 import {GAME_CONTAINER} from "../Constants.js";
+import Stats from "../elements/Stats.js";
 // 
 export default class MenuState {
     #chosen
@@ -42,12 +43,10 @@ export default class MenuState {
         if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "start" || keysPressed.wasPressed("Enter") && this.#menu[this.#chosen] === "start") {
             sounds.list.confirm.play();
             stateMachine.change("serve", {
-                paddle: new Paddle(),
-                health: 3,
-                score: 0,
-                path: "menu",
                 level: 1,
-                time: 0,
+                stats: new Stats(),
+                path: "menu",
+                paddle: new Paddle(),
             });
         };
         // On enter go to highscores

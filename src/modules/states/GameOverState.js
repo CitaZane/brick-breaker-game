@@ -9,7 +9,7 @@ export default class GameOverState {
        this.storyMode = 1;
     }
     enter(params) {
-        this.score = params.score;
+        this.stats = params.stats;
         this.level = params.level;
         // Handle if all 10 lvls finished and if not
         if(this.level<2){
@@ -20,7 +20,7 @@ export default class GameOverState {
          getHtml("./configs/gameOver.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
             .then(()=> {
-            document.querySelector("#finalScore").innerHTML= this.score;
+            document.querySelector("#finalScore").innerHTML= this.stats.score;
             document.querySelector(".storyContainer").classList.remove("hide")
             document.querySelector("#storyText").innerHTML = this.story[0];
             })
@@ -50,8 +50,6 @@ export default class GameOverState {
     }
     exit() {
         removeElements(["enterHighscore", "gameOverContainer"])
-        // GAME_CONTAINER.removeChild(document.querySelector(".enterHighscore"));
-        // GAME_CONTAINER.removeChild(document.querySelector(".gameOverContainer"));
         keysPressed.clear();
     }
     scoreSubmit(e){

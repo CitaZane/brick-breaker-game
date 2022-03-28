@@ -6,10 +6,8 @@ export default class PlayState {
         this.paddle = params.paddle;
         this.ball = params.ball;
         this.bricks = params.bricks;
-        this.health = params.health;
-        this.score = params.score;
+        this.stats = params.stats;
         this.level = params.level;
-        this.time = params.time;
         if(params.path == "serve")this.ball.launch(); 
     }
 
@@ -23,19 +21,17 @@ export default class PlayState {
         /* ---------------------------- Main game update ---------------------------- */
         this.paddle.update(delta);
         this.ball.update(delta);
-       this.time = this.time+delta*1000 // time count in miliseconds
-       this.updateTime()
-    //    console.log("Curr time", this.time)
+        this.stats.updateTime(delta);
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {
             this.ball.paddleHit(this.paddle)
         }else if (this.ball.outOfScreen()) {
             /* -------------------------------- ball lost -------------------------------- */
-            if (this.health > 1) {
+            if (this.stats.health > 1) {
                 sounds.list.loseBall.play()
-                removeElements(["ball"])
-                this.losthHealth(); 
+                removeElements(["ball"]);
+                this.stats.updateHealth(-1);
                 stateMachine.change("serve", this.configureParams());
             } else {
                 sounds.list.loseGame.play()
@@ -50,7 +46,7 @@ export default class PlayState {
             this.bricks.forEach(brick => {
                 if(brick.inPlay && this.ball.collides(brick)){
                     let hitResult = brick.hit(); // Brick hit returns 1 if brick destroyed, 0 if not
-                    this.calculateScore(hitResult, brick)
+                    this.stats.updateScore(hitResult,brick.value, brick.type)
                     this.ball.brickHit(brick) // change ball direction
                 }
                 if(brick.inPlay) this.bricksInGame = true; // keep track when all bricks are destroyed
@@ -68,34 +64,13 @@ export default class PlayState {
     }
 
     /* ----------------------------- helper function ---------------------------- */
-    losthHealth(){
-        let healthContainer = document.querySelector(".healthContainer")
-        healthContainer.removeChild(document.querySelector(".health"))
-        this.health --
-    }
-    calculateScore(brickDestroyed, brick){
-        if(brickDestroyed == 1){
-            this.score += 100 + brick.type*50 -  (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *10
-        }else{
-            this.score += brick.type * 25 - (brick.height/TILE_SIZE)*(brick.width/TILE_SIZE) *2
-        }
-        document.querySelector("#score").innerHTML = this.score
-    }
-    updateTime(){
-        let seconds = ((this.time / 1000)).toFixed(0);
-        let minutes = Math.floor(seconds / 60);
-        document.querySelector("#timeMinutes").innerHTML = ((minutes%60 < 10 ? '0' : '') + minutes %60)
-        document.querySelector("#timeSeconds").innerHTML = ((seconds%60 < 10 ? '0' : '') + seconds%60)
-    }
     configureParams(){
         return {
             ball: this.ball,
             paddle:this.paddle,
             bricks:this.bricks,
-            health: this.health,
-            score: this.score,
+            stats: this.stats,
             level:this.level,
-            time:this.time,
             path: "play",
         }
     }
