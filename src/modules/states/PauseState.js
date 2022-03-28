@@ -8,6 +8,7 @@ export default class PauseState {
         this.params = params;
         this.path = params.path;
         this.params.path = "pause";
+        sounds.renderVolume();
         this.container = document.querySelector(".pauseContainer");
         this.container.classList.remove("hide")
 
@@ -29,6 +30,28 @@ export default class PauseState {
             document.getElementById(this.menu[this.chosen]).classList.remove("chosen")
             this.chosen = (this.chosen === 0) ? this.menu.length - 1 : this.chosen - 1;
             document.getElementById(this.menu[this.chosen]).classList.add("chosen");
+        }
+         if (keysPressed.wasPressed("ArrowLeft")) {
+            keysPressed.clear();
+            if(this.menu[this.chosen] === "pauseSoundEffects"){
+                sounds.list.select.play();
+                sounds.decreaseSoundVol();
+            }
+             if(this.menu[this.chosen] === "pauseSoundBackground"){
+                sounds.list.select.play();
+                sounds.decreaseBackgroundVol();
+            }
+        }
+        if (keysPressed.wasPressed("ArrowRight")) {
+            keysPressed.clear();
+            if(this.menu[this.chosen] === "pauseSoundEffects"){
+                sounds.list.select.play();
+                sounds.increaseSoundVol();
+            }
+            if(this.menu[this.chosen] === "pauseSoundBackground"){
+                sounds.list.select.play();
+                sounds.increaseBackgroundVol();
+            }
         }
         if ( keysPressed.wasPressed(" ") && this.menu[this.chosen] === "pauseResume"){
             keysPressed.clear();

@@ -10,6 +10,7 @@ export default class SettingsState {
         getHtml("./configs/settings.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
             .then(()=> this.menu = createListformElements("settingsChoices"))
+            .then(()=> sounds.renderVolume())
     }
     update() {
         if (keysPressed.wasPressed("ArrowDown")) {

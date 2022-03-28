@@ -50,9 +50,11 @@ export function removeChildElements(parentClass){
         parent.removeChild(parent.lastChild);
     }
 }
+/* --------------------- create list from html elements --------------------- */
+/* -------------------- useful for creating menu choices -------------------- */
 export function createListformElements(parentId){
     let list = []
-    let choices = document.getElementById(parentId).childNodes;
+    let choices = document.getElementById(parentId).childNodes; 
     const choiceArray = Array.from(choices);
         for (let i = 0; i < choiceArray.length; i++) {
             if (choiceArray[i]?.id){

@@ -54,4 +54,8 @@ export default class Sound {
     setBackgroundVol(){
         document.querySelector("#backgroundVolume").innerHTML = Math.round(this.backgroundVolume * 10)
     }
+    renderVolume(){
+       this.setBackgroundVol();
+       this.setSoundVol(); 
+    }
 }
