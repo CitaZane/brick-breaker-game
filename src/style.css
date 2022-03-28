@@ -18,19 +18,37 @@
 
 :root {
   /* Colors */
-  --highlightColor: aqua;
+  --highlightColor: #ca6702;
   --overlayColor: rgba(223, 223, 223, 0.7);
   --backgroundColor: #f1d1a6;
+  --textColor: #242424;
 
   /* Overlay settings */
-  --overlaySize: 92%;
-  --overlayOffset: 4%;
+  /* --overlaySize: 92%;
+  --overlayOffset: 4%; */
+  --overlaySize: 100%;
+  --overlayOffset: 0%;
+  /* fonts */
+  --fontXS: 14px;
+  --fontS: 20px;
+  --fontM: 36px;
+  --fontL: 48px;
+  /* margins */
+  --marginS: 10px;
+  --marginMS: 20px;
+  --marginM: 30px;
+  --marginL: 100px;
 }
 
 body {
   height: 100vh;
   image-rendering: pixelated;
   background-color: var(--backgroundColor);
+  color: var(--textColor);
+}
+p,
+div {
+  font-size: var(--fontS);
 }
 
 #game-container {
@@ -50,11 +68,6 @@ body {
   bottom: 0;
 }
 
-/* .soundContainer {
-  position: absolute;
-  top: -20px;
-} */
-
 /* --------------------------- menu state screen --------------------------- */
 .menuContainer {
   position: absolute;
@@ -65,15 +78,17 @@ body {
   text-align: center;
 }
 .menuContainer h1 {
-  margin-top: 50px;
+  margin-top: var(--marginL);
+  font-size: var(--fontL);
 }
 
 #menuChoices {
-  margin-top: 80px;
+  margin-top: var(--marginM);
 }
 
 #menuChoices * {
-  margin-top: 10px;
+  margin-top: var(--marginS);
+  font-size: var(--fontS);
 }
 
 .chosen {
@@ -109,7 +124,7 @@ body {
 
 .healthContainer {
   position: absolute;
-  top: 40px;
+  top: 620px;
   left: 15px;
 }
 .health {
@@ -119,10 +134,15 @@ body {
   border-radius: 50%;
   display: inline-block;
 }
+.timeContainer {
+  position: absolute;
+  top: 690px;
+  left: 15px;
+}
 
 .scoreContainer {
   position: absolute;
-  top: 15px;
+  top: 650px;
   left: 15px;
 }
 
@@ -175,8 +195,16 @@ body {
   background-color: var(--overlayColor);
   z-index: 6;
 }
-.pauseContainer * {
-  margin-top: 100px;
+#pause h2 {
+  margin-top: var(--marginL);
+  font-size: var(--fontM);
+}
+#pauseMenuChoices {
+  margin-top: var(--marginM);
+}
+#pauseMenuChoices * {
+  margin-top: var(--marginS);
+  font-size: var(--fontS);
 }
 
 /* ----------------------------- game over state ---------------------------- */
@@ -188,14 +216,21 @@ body {
   top: var(--overlayOffset);
   left: var(--overlayOffset);
   text-align: center;
-  background-color: var(--overlayColor);
+  /* background-color: var(--overlayColor); */
 }
 
 .gameOverContainer * {
   text-align: center;
+  margin-top: var(--marginM);
+  font-size: var(--fontS);
+}
+.gameOverContainer p {
+  margin-left: 25px;
+  margin-right: 250px;
 }
 .gameOverContainer h1 {
-  margin-top: 50px;
+  margin-top: var(--marginL);
+  font-size: var(--fontL);
 }
 
 /* ----------------------------- victory state ---------------------------- */
@@ -207,14 +242,15 @@ body {
   top: var(--overlayOffset);
   left: var(--overlayOffset);
   text-align: center;
-  background-color: var(--overlayColor);
+  /* background-color: var(--overlayColor); */
 }
 
 .victoryContainer * {
   text-align: center;
+  margin-top: var(--marginM);
 }
 .victoryContainer h1 {
-  margin-top: 50px;
+  margin-top: var(--marginL);
 }
 /* ----------------------------- settings state ----------------------------- */
 .settingsContainer {
@@ -225,6 +261,25 @@ body {
   left: var(--overlayOffset);
   text-align: center;
 }
+.settingsContainer h1 {
+  margin-top: 100px;
+  font-size: var(--fontM);
+}
+#settingsChoices {
+  margin-top: var(--marginM);
+}
+#settingsChoices * {
+  margin-top: var(--marginS);
+}
+.controls {
+  margin-top: var(--marginL);
+}
+.controlsContainer {
+  margin-top: var(--marginM);
+}
+.controls h2 {
+  font-size: var(--fontMS);
+}
 .controlsImg {
   display: inline-block;
   width: 220px;
@@ -232,12 +287,18 @@ body {
   background-image: url("../graphics/controlls.png");
 }
 .controlsDesc {
-  height: 270px;
-  display: inline-block;
+  position: absolute;
+  top: 375px;
+  left: 485px;
 }
 .controlsDesc * {
-  margin-bottom: 90px;
-  margin-top: 20px;
+  font-size: var(--fontXS);
+}
+.controlsDesc p:nth-child(2) {
+  margin-bottom: 128px;
+}
+.controlsDesc p:nth-child(1) {
+  margin-bottom: 78px;
 }
 
 .volumeControl::before {
@@ -249,9 +310,58 @@ body {
 .volumeControl::after {
   content: "🞂";
   position: absolute;
-  height: 100%;
+  height: 120%;
   right: 380px;
 }
 .volume {
   position: relative;
+}
+
+/* ----------------------------- enter highscore ---------------------------- */
+.enterHighscore {
+  position: absolute;
+  top: 320px;
+  left: 485px;
+}
+#highscoreForm {
+  text-align: center;
+}
+
+#highscoreForm input {
+  display: block;
+}
+
+/* ----------------------------- highscore table ---------------------------- */
+.highscoreContainer {
+  position: absolute;
+  width: var(--overlaySize);
+  height: var(--overlaySize);
+  top: var(--overlayOffset);
+  left: var(--overlayOffset);
+  text-align: center;
+}
+.highscoreContainer h2 {
+  margin-top: var(--marginL);
+  font-size: var(--fontL);
+}
+
+.highscoreContainer table {
+  width: 550px;
+  font-size: var(--fontS);
+  margin: auto;
+  margin-top: var(--marginM);
+}
+.highscoreContainer div {
+  width: 550px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.highscoreContainer div p {
+  margin-top: var(--marginM);
+  font-size: var(--fontXS);
+}
+
+#scoreTableBody {
+  margin-top: var(--marginMS);
 }
