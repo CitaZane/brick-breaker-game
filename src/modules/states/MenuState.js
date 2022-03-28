@@ -46,7 +46,8 @@ export default class MenuState {
                 health: 3,
                 score: 0,
                 path: "menu",
-                level: 1
+                level: 1,
+                time: 0,
             });
         };
         // On enter go to highscores

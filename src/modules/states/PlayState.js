@@ -9,10 +9,11 @@ export default class PlayState {
         this.health = params.health;
         this.score = params.score;
         this.level = params.level;
+        this.time = params.time;
         if(params.path == "serve")this.ball.launch(); 
     }
 
-    update(delta) {
+    update(delta=0) {
         /* ----------------------------- configure pause ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
             sounds.list.pause.play();
@@ -22,6 +23,9 @@ export default class PlayState {
         /* ---------------------------- Main game update ---------------------------- */
         this.paddle.update(delta);
         this.ball.update(delta);
+       this.time = this.time+delta*1000 // time count in miliseconds
+       this.updateTime()
+    //    console.log("Curr time", this.time)
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {
@@ -77,6 +81,12 @@ export default class PlayState {
         }
         document.querySelector("#score").innerHTML = this.score
     }
+    updateTime(){
+        let seconds = ((this.time / 1000)).toFixed(0);
+        let minutes = Math.floor(seconds / 60);
+        document.querySelector("#timeMinutes").innerHTML = ((minutes%60 < 10 ? '0' : '') + minutes %60)
+        document.querySelector("#timeSeconds").innerHTML = ((seconds%60 < 10 ? '0' : '') + seconds%60)
+    }
     configureParams(){
         return {
             ball: this.ball,
@@ -85,6 +95,7 @@ export default class PlayState {
             health: this.health,
             score: this.score,
             level:this.level,
+            time:this.time,
             path: "play",
         }
     }
