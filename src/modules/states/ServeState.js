@@ -25,7 +25,7 @@ export default class ServeState {
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
         /* ------------------------------ update story ----------------------------- */
-        if(this.levelManager.story?.active){
+        if(this.levelManager?.story?.active){
             if(this.levelManager.story.currentFinished()){
                 if(keysPressed.wasPressed(" ")){
                     keysPressed.clear();
