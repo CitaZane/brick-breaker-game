@@ -12,7 +12,6 @@ export default class MenuState {
     }
     /* --------------------- create start menu html elements -------------------- */
     enter() {
-        // sounds.background.muted = false;
         this.#chosen = 0;
         getHtml("./configs/mainMenu.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
@@ -23,7 +22,7 @@ export default class MenuState {
     update() {
         // highlight chosen option
         if (keysPressed.wasPressed("ArrowDown")) {
-            if(!sounds.activated)sounds.activate();
+            if(!sounds.activated)sounds.activate();//activate background sound on click
             sounds.list.select.play();
             document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
             this.#chosen = (this.#chosen < this.#menu.length - 1) ? this.#chosen + 1 : 0;
@@ -31,7 +30,7 @@ export default class MenuState {
             keysPressed.clear();
         }
         if (keysPressed.wasPressed("ArrowUp")) {
-            if(!sounds.activated)sounds.activate();
+            if(!sounds.activated)sounds.activate();//activate background sound on click
             sounds.list.select.play();
             document.getElementById(this.#menu[this.#chosen]).classList.remove("chosen")
             this.#chosen = (this.#chosen === 0) ? this.#menu.length - 1 : this.#chosen - 1;
@@ -41,6 +40,7 @@ export default class MenuState {
         // On enter go to next state
         // Start Game
         if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "start" || keysPressed.wasPressed("Enter") && this.#menu[this.#chosen] === "start") {
+            if(!sounds.activated)sounds.activate();//activate background sound on click
             sounds.list.confirm.play();
             stateMachine.change("serve", {
                 level: 1,
