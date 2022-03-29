@@ -225,7 +225,7 @@ div {
   font-size: var(--fontS);
 }
 .gameOverContainer p {
-  margin-left: 25px;
+  margin-left: 250px;
   margin-right: 250px;
 }
 .gameOverContainer h1 {
@@ -330,7 +330,10 @@ div {
 #highscoreForm input {
   display: block;
 }
-
+.enterHighscore p {
+  font-size: var(--fontXS);
+  margin-top: var(--marginM);
+}
 /* ----------------------------- highscore table ---------------------------- */
 .highscoreContainer {
   position: absolute;

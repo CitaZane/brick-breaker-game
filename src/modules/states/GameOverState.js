@@ -39,13 +39,14 @@ export default class GameOverState {
                     .then(()=> {
                         this.container = document.querySelector(".enterHighscore");
                         const scoreForm = document.querySelector("#highscoreForm");
-                        scoreForm.addEventListener('submit', this.scoreSubmit)
+                        scoreForm.addEventListener('submit', this.scoreSubmit);
+                        document.querySelector("#highscoresSubmitBtn").addEventListener('mousedown', this.scoreSubmit)
                         scoreForm.setAttribute('score', this.stats.score); // adding score to form data field
                     })
                 }
             }
-        if (keysPressed.wasPressed("Enter")) {
-            stateMachine.change("highscore");
+        if (keysPressed.wasPressed("Escape")) {
+            stateMachine.change("menu");
         }
     }
     exit() {
@@ -67,7 +68,7 @@ export default class GameOverState {
                 score : score
             })
         })
-        .then(()=>console.log("Submitted",player, score))
+        .then(()=>stateMachine.change("highscore"))
     }
     
     nextStory(){
