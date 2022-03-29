@@ -18,11 +18,12 @@ export default class Sound {
             this.list[name].src = src;
             this.list[name].volume = 0.2;
         });
+        this.list["type"].loop = true;
     }
-        initBackground() {
-        this.background.src = "./sounds/background.wav"
-        this.background.volume = 0.1;
-        this.background.loop = true;
+    initBackground() {
+    this.background.src = "./sounds/background.wav"
+    this.background.volume = 0.1;
+    this.background.loop = true;
     }
     increaseSoundVol(){
         this.soundVolume = Math.min(this.soundVolume + 0.1, 1);

@@ -9,6 +9,7 @@ export default class Story{
         this.type(0);
     }
     next(){
+        sounds.list.confirm.play();
         if(this.current == this.list.length-1){
             this.active = false;
             this.hide();
@@ -32,13 +33,15 @@ export default class Story{
         let timerId
         let fastForward = false;
         let charPos = 7;//Offset for not typing out character name
-        let speed = 70; //controll the typing speed
+        let speed = 40; //controll the typing speed
         let msg = this.list[storyCount];
         let msgBuffer= msg.slice(0, charPos);
         let textBox =  document.querySelector("#storyText");
+        sounds.list.type.play()
         function startTyping(){
             /* ------------------ detect if player wants to fastForward ----------------- */
             if(keysPressed.wasPressed(" ")){
+                sounds.list.type.pause()
                 fastForward=true
                 keysPressed.clear();
             }
@@ -54,6 +57,7 @@ export default class Story{
                 timerId=setTimeout(startTyping, speed)
             }else{
                 textBox.innerHTML = msg;
+                sounds.list.type.pause()
             }
             
         }
