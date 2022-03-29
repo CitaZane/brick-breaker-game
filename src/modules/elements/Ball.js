@@ -43,7 +43,7 @@ export default class Ball {
     launch(){  
         this.#dx = 0
         // this.#dx = getRandomInt(-200, 200);
-        this.#dy = -300
+        this.#dy = -350
         // this.#dy = getRandomInt(-200, -200);
     }
     /* ------------------------- detect if ball is lost ------------------------- */
@@ -140,7 +140,7 @@ export default class Ball {
             sounds.list.wallHit.play();
         }
     }
-    
+
     createBall() {
         let ball = document.createElement("div");
         ball.classList.add("ball")
