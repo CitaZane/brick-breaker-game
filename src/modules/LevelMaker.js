@@ -1,6 +1,7 @@
 import Brick from "./elements/Brick.js";
 import { GAME_CONTAINER, TILE_SIZE, VIRTUAL_WIDTH } from "./Constants.js";
 import { fetchJson } from "./utils.js";
+import Story from "./elements/Story.js";
 
 export default class LevelMaker{
     constructor(){
@@ -10,12 +11,10 @@ export default class LevelMaker{
         fetchJson(`../levels/${level}.json`)
         .then((res)=>{
             this.level = res.level
-            this.story = res.intro
-            // this.storyLength = this.story.length;
-            this.currentStory = 0;
+            this.story = new Story(res.intro);
+            this.story.show();
             this.brickBlueprint = res.bricks
             this.generateBricks();
-            this.showFirstStory();
         })
     }
     generateBricks(){
@@ -35,21 +34,5 @@ export default class LevelMaker{
         this.brickContainer = document.createElement("div")
         this.brickContainer.classList.add("brickContainer")
         GAME_CONTAINER.appendChild(this.brickContainer)
-    }
-    showFirstStory(){
-        document.querySelector(".storyContainer").classList.remove("hide")
-        document.querySelector("#storyText").innerHTML = this.story[0];
-    }
-    nextStory(){
-        this.currentStory++
-        document.querySelector("#storyText").innerHTML = this.story[this.currentStory];
-        if (this.currentStory == this.story.length-1){
-            return 1
-        }
-         return 0
-    }
-    // Hide the story content from player
-    hideStory(){
-        document.querySelector(".storyContainer").classList.add("hide")
     }
 }

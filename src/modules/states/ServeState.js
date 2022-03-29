@@ -6,8 +6,6 @@ import {getHtml} from "../utils.js";
 export default class ServeState {
     constructor(){
         this.levelManager = new LevelMaker();
-        // 3 stages-> 1 story mode on, 0 last story, -1 story mode false
-        this.storyMode = 1;
     }
 
     enter(params) {
@@ -27,21 +25,23 @@ export default class ServeState {
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
         /* ------------------------------ update story ----------------------------- */
-        if (keysPressed.wasPressed(" ")) {
-            keysPressed.clear();
-            if(this.storyMode == 1){
-                sounds.list.confirm.play();
-                let last = this.levelManager.nextStory();
-                if(last === 1) this.storyMode = 0;
-            }else if(this.storyMode == 0){
-                sounds.list.confirm.play();
-                this.levelManager.hideStory();
-                this.storyMode--
-            }else{
+        if(this.levelManager.story?.active){
+            if(this.levelManager.story.currentFinished()){
+                if(keysPressed.wasPressed(" ")){
+                    keysPressed.clear();
+                    this.levelManager.story.next()
+                }
+                    
+            };
+        }else if (!this.levelManager.story?.active){
+            /* ---------- storymode MediaElementAudioSourceNode, start the game --------- */
+            if (keysPressed.wasPressed(" ")){
+                keysPressed.clear();
                 sounds.list.ballShoot.play();
                 stateMachine.change("play",  this.configureParams());
             }
         }
+
         /* ----------------------------- open pause menu ---------------------------- */
         if (keysPressed.wasPressed("Escape")) {
             sounds.list.pause.play();

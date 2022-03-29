@@ -19,3 +19,6 @@ Use for html snippets
 }
 <!-- Audio files -->
 <!-- https://www.freesfx.co.uk/Default.aspx -->
+
+<!-- dynamic typing for story -->
+<!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_typewriter -->
