@@ -6,13 +6,15 @@ export default class GameOverState {
        this.loseStory = ["Parrot: Oh, Cap'n, Sink me! We be in trouble. Th' last cannonball has left th' ship, we be out o' weaponrrry.", "Pirate: Shiver me timbers! Th' city still stands tall and strong. Let's turn this Sea Rover aroun'! This be not our fight t' win."] ;
        this.winStory = ["Pirate: There be no meain' in throwin' a fire o'er th' city. Mate, I think this be wrong!", "Parrot: Ye be goin' mad, me Cap'n. We must fight fer th' booty. Th' enlightenment and knowledge must have gotten t' yer soul. Ye be mad! Mad as a barnacle-covered slug!", "Pirate: Oh, me dear me bucko, ye be wrong without a doubt! We must fight together or not fight at all! We have this holly ship and 12 barrels o' rum, that be all we really need. Not all booty be silver and gold."];
        this.currentStory = 0;
-       this.storyMode = 1;
+       this.storyMode = 1; // 3 stages-> 1 story mode on, 0 last story, -1 story mode false
     }
     enter(params) {
         this.stats = params.stats;
         this.level = params.level;
+        this.storyMode = 1;
+        this.currentStory =0;
         // Handle if all 10 lvls finished and if not
-        if(this.level<2){
+        if(this.level<10){
             this.story = this.loseStory;
         }else{
             this.story= this.winStory;
