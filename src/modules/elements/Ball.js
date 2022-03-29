@@ -1,4 +1,4 @@
-import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT, TILE_SIZE} from "../Constants.js";
+import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT} from "../Constants.js";
 export default class Ball {
     #dx
     #dy
@@ -12,6 +12,7 @@ export default class Ball {
         this.#dx = 0;
         this.#dy = 0;
         this.reset();
+        this.lost = false; //holds value false if ball in the game/ true if lost
     }
 
     get x() {
@@ -28,22 +29,24 @@ export default class Ball {
         this.ball.style.setProperty("--y", value)
     }
 
-    // Place ball in the center of paddle
+    /* ------------------- Place ball in the center of paddle ------------------- */
     reset() {
+        this.lost = false;
         this.x = VIRTUAL_WIDTH / 2 - this.#width /2;
         this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
     }
-    // In serve state ball folows movement of paddle
+    /* -------------- In serve state ball folows movement of paddle ------------- */
     followPaddle( paddle){
         this.x = paddle.x + (paddle.width / 2) - this.#width / 2;
     }
-    // launch ball off the paddle
+     /* ----------------------- launch ball off the paddle ----------------------- */
     launch(){  
         this.#dx = 0
         // this.#dx = getRandomInt(-200, 200);
         this.#dy = -300
         // this.#dy = getRandomInt(-200, -200);
     }
+    /* ------------------------- detect if ball is lost ------------------------- */
     outOfScreen() {
         if (this.y > VIRTUAL_HEIGHT-this.#height) {
             return true
@@ -51,6 +54,7 @@ export default class Ball {
         return false
     }
     /* --------------------- simple AABB collision detection -------------------- */
+    /* ---------- element needs accessable params: x, y , width, height ---------- */
     collides(element) {
         if (this.x + this.#width >element.x && 
             this.x<element.x +element.width &&
@@ -87,23 +91,34 @@ export default class Ball {
         
         }
     }
+    /* --- returns true if paddle history, false in case of ball out already of bounds -- */
     paddleHit(paddle){
-        sounds.list.paddleHit.play()
-        // Change ball movement based on how it hit the paddle
-        // if hit the paddle on left side while moving left
+        if(this.lost) return false;
+        /* ------ // check if balls center is off paddle -> then drop the ball ------ */
+        if(this.x+(this.#width /2) > paddle.x+paddle.width && this.y+(this.#height /2)>paddle.y){
+            this.lost = true;
+            return false;
+        } 
+        if(this.x+(this.#width /2) < paddle.x && this.y+(this.#height /2)>paddle.y){
+            this.lost = true;
+            return false;
+        };
+        /* ----------- Change ball movement based on how it hit the paddle ---------- */
+        // if hit the paddle on left side
         let multiplyer = 4
         if(this.x<paddle.x+(paddle.width/2) ){
             this.#dx =50- multiplyer*(paddle.x + paddle.width/2 - this.x+this.#width/2);
-            // if hit the paddle on right side while moving right
+            // if hit the paddle on right side 
         }else if(this.x>paddle.x+(paddle.width/2)){
             this.#dx = 50+  multiplyer*Math.abs(paddle.x + paddle.width/2 -this.x)
         }
-        // place ball above Y axis, so it doesnt get stuck
+        /* ------------- place ball above Y axis, so it doesnt get stuck ------------ */
         this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
-        // Reverse Y velocity
+        /* --------------------------- Reverse Y velocity --------------------------- */
         this.#dy = -this.#dy;
+        return true;
     }
-    // Main update - move the ball and bounce off the wals
+    /* ----------- Main update - move the ball and bounce off the wals ---------- */
     update(delta = 0) {
         this.x = this.x + this.#dx * delta;
         this.y = this.y + this.#dy * delta;
@@ -125,6 +140,7 @@ export default class Ball {
             sounds.list.wallHit.play();
         }
     }
+    
     createBall() {
         let ball = document.createElement("div");
         ball.classList.add("ball")

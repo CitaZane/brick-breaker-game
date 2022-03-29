@@ -11,8 +11,6 @@ export default class ServeState {
     }
 
     enter(params) {
-        console.log("Enter Serve")
-        console.log(params.level)
         this.paddle = params.paddle;
         this.stats = params.stats;
         this.ball = (params.path=="pause") ? params.ball : new Ball();

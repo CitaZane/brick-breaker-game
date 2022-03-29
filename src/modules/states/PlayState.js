@@ -25,7 +25,8 @@ export default class PlayState {
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {
-            this.ball.paddleHit(this.paddle)
+            let bounced = this.ball.paddleHit(this.paddle)
+            if(bounced)sounds.list.paddleHit.play()
         }else if (this.ball.outOfScreen()) {
             /* -------------------------------- ball lost -------------------------------- */
             if (this.stats.health > 1) {

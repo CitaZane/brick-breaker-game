@@ -37,9 +37,8 @@ export default class MenuState {
             document.getElementById(this.#menu[this.#chosen]).classList.add("chosen");
             keysPressed.clear();
         }
-        // On enter go to next state
-        // Start Game
-        if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "start" || keysPressed.wasPressed("Enter") && this.#menu[this.#chosen] === "start") {
+        /* ----------------------------- // Change state ---------------------------- */
+        if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "start") {
             if(!sounds.activated)sounds.activate();//activate background sound on click
             sounds.list.confirm.play();
             stateMachine.change("serve", {
@@ -49,7 +48,6 @@ export default class MenuState {
                 paddle: new Paddle(),
             });
         };
-        // On enter go to highscores
         if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "highscores") {
             sounds.list.confirm.play();
             stateMachine.change("highscore");
