@@ -60,6 +60,7 @@ CitaZane
 - [Dynamic typing for story](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_typewriter)
 - [Awesome pixelart - self created](https://www.behance.net/zanekrmia)
 - [Bitmasking to autotile bricks](https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673)
+- [Great course about Break-Out game from CS50 / Introduction to Game Development](https://www.youtube.com/watch?v=F86edI_EF3s&t=5993s)
 
 ## What I learned
 
@@ -69,11 +70,12 @@ CitaZane
 - MYSQL -> creating a database and comunication. Basic queries.
 - Using/creating tilesets.
 - Concept of sprite sheets.
+- Concept of State Machine in gaming.
 - Manipulation of DOM.
 - Adding sound to website.
 - Improved artistic capability "hopefully"
 
-{
+<!-- {
 "level": 1,
 "intro": ["first intro line", "second intro line"],
 "bricks": {
@@ -85,4 +87,4 @@ CitaZane
 "1": [{ "x": 3, "y": 1, "w": 1, "h": 1 }],
 "2": [{ "x": 4, "y": 0, "w": 3, "h": 3 }]
 }
-}
+} -->
