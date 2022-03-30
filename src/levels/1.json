@@ -6,6 +6,10 @@
     "Pirate: Ahoy, Matey! Get th'  Chase Gun ready. Let's destroy th' obstacles. Fire in the Hole!"
   ],
   "bricks": {
-    "0": [{ "x": 8, "y": 0, "w": 6, "h": 6 }]
+    "0": [
+      { "x": 8, "y": 0, "w": 6, "h": 6, "pow": 1 },
+      { "x": 0, "y": 0, "w": 6, "h": 6 },
+      { "x": 16, "y": 0, "w": 6, "h": 6, "pow": 2 }
+    ]
   }
 }

@@ -8,6 +8,7 @@ export default class PlayState {
         this.bricks = params.bricks;
         this.stats = params.stats;
         this.level = params.level;
+        this.activePow = params.activePow;
         if(params.path == "serve")this.ball.launch(); 
     }
 
@@ -22,6 +23,13 @@ export default class PlayState {
         this.paddle.update(delta);
         this.ball.update(delta);
         this.stats.updateTime(delta);
+        this.bricks.forEach(brick => {
+           let pow = brick.updatePow(delta, this.paddle)
+           if(pow!=0){
+               this.activePow.push(pow)
+               console.log(this.activePow)
+           }
+        });
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {
@@ -55,6 +63,7 @@ export default class PlayState {
                 if(!this.bricksInGame){
                 sounds.list.victory.play();
                 removeElements(["ball"])
+                removeChildElements("brickContainer"); // for safety if powerups still falling
                 stateMachine.change("victory", this.configureParams());
             }
         }
@@ -70,6 +79,7 @@ export default class PlayState {
             ball: this.ball,
             paddle:this.paddle,
             bricks:this.bricks,
+            activePow: this.activePow,
             stats: this.stats,
             level:this.level,
             path: "play",

@@ -4,8 +4,8 @@ export default class Sound {
         this.background = background;
         this.initSounds();
         this.initBackground();
-        this.soundVolume = 0.2; //0-1
-        this.backgroundVolume = 0.1; //0-1
+        this.soundVolume = 0; //0-1
+        this.backgroundVolume = 0; //0-1
         this.activated = false;
     }
     activate(){
@@ -16,13 +16,13 @@ export default class Sound {
         Object.keys(this.list).forEach(name => {
             let src = `./sounds/${name}.wav`;
             this.list[name].src = src;
-            this.list[name].volume = 0.2;
+            this.list[name].volume = 0;
         });
         this.list["type"].loop = true;
     }
     initBackground() {
     this.background.src = "./sounds/background.wav"
-    this.background.volume = 0.1;
+    this.background.volume = 0;
     this.background.loop = true;
     }
     increaseSoundVol(){

@@ -1,17 +1,22 @@
 import {GAME_CONTAINER, TILE_SIZE} from "../Constants.js";
+import PowerUp from "./PowerUp.js";
 import Tile from "./Tile.js";
 export default class Brick{
     #health
     #tiles
-    constructor(x,y, type, container,w,h) {
+    constructor(x,y, type, container,w,h,pow =0) {
 
         this.height = h*TILE_SIZE
         this.width = w*TILE_SIZE
         this.x = x
         this.y = y
 
-        this.brick = this.createBrick();
-
+        this.brick = this.createBrick(); //html element
+        if (pow == 0){
+            this.pow = 0
+        }else{
+            this.pow = new PowerUp(pow); 
+        }
         this.type = type
         this.value = (this.height/TILE_SIZE)*(this.width/TILE_SIZE)
         this.#health = type
@@ -21,10 +26,18 @@ export default class Brick{
         this.container = container
 
     }
-
+    updatePow(delta, paddle){
+       if(this.pow !=0){
+            return this.pow.update(delta, paddle)
+        } 
+        return 0
+    }
     // Triggers a hit on the brick, taking it out of play if at 0 health or
     // changing its color otherwise.
     hit(){
+        if(this.pow !=0 && this.pow.status == "locked"){
+            this.pow.drop();
+        }
         this.#health --
         if(this.#health<0){
             if (this.type == 2){
@@ -96,6 +109,10 @@ export default class Brick{
             })
             currentTile.addTexture(tileValue, this.type);
         });
+        // Add powerup
+        if(this.pow !=0){
+            this.pow.draw(this.container, this.height,this.width, this.x, this.y)
+        }
     }
 
 }

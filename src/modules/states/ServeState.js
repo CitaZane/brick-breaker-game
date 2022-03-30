@@ -13,17 +13,32 @@ export default class ServeState {
         this.stats = params.stats;
         this.ball = (params.path=="pause") ? params.ball : new Ball();
         this.level = params.level;
+        this.path = params.path
         // Create health, score, pause container, storyLine
         if (params.path === "menu") {
             getHtml("./configs/gameSetup.html")
             .then((res)=>GAME_CONTAINER.insertAdjacentHTML("afterbegin", res))
-            .then(()=> this.initLevel())  
+            .then(()=> {
+                this.activePow = [];
+                this.initLevel()  
+            })
         }
-        if (params.path === "victory") this.initLevel();
+        if (params.path === "victory"){
+            this.activePow = [];
+            this.initLevel();
+        }
     }
     update(delta) {
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
+        if(this.path == "play"){
+            this.levelManager.bricks.forEach(brick => {
+                let pow = brick.updatePow(delta, this.paddle)
+                if(pow!=0){
+                    this.activePow.push(pow)
+                }
+            });
+        }
         /* ------------------------------ update story ----------------------------- */
         if(this.levelManager?.story?.active){
             if(this.levelManager.story.currentFinished()){
@@ -62,6 +77,7 @@ export default class ServeState {
             paddle: this.paddle,
             ball: this.ball,
             bricks:this.levelManager.bricks,
+            activePow: this.activePow,
             stats :this.stats,
             level:this.level,
             path: "serve",

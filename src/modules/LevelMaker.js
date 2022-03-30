@@ -7,6 +7,7 @@ export default class LevelMaker{
     constructor(){
         this.makeBrickContainer();
     }
+
     mapLevel(level){
         fetchJson(`../levels/${level}.json`)
         .then((res)=>{
@@ -18,13 +19,13 @@ export default class LevelMaker{
         })
     }
     generateBricks(){
-        let xOffset = 140;
-        let yOffset = 40;
+        let xOffset = 140; //Offset calculated to placethe bricks in center for 25 bricks
+        let yOffset = 40; //placed  one tile size from top
         this.bricks = [];
 
         for (let type in this.brickBlueprint){
-            this.brickBlueprint[type].forEach(pos => {
-                let b = new Brick(pos.x*TILE_SIZE+xOffset ,pos.y*TILE_SIZE+yOffset,type, this.brickContainer, pos.w, pos.h)
+            this.brickBlueprint[type].forEach(brick => {
+                let b = new Brick(brick.x*TILE_SIZE+xOffset ,brick.y*TILE_SIZE+yOffset,type, this.brickContainer, brick.w, brick.h, brick.pow)
                 this.bricks.push(b)
                 b.draw();
             });
