@@ -32,11 +32,10 @@ export default class ServeState {
         this.paddle.update(delta);
         this.ball.followPaddle(this.paddle)
         if(this.path == "play"){
+            this.activePow.forEach(pow =>pow.updateActivated(delta));
             this.levelManager.bricks.forEach(brick => {
                 let pow = brick.updatePow(delta, this.paddle)
-                if(pow!=0){
-                    this.activePow.push(pow)
-                }
+                if(pow!=0)this.activePow.push(pow) 
             });
         }
         /* ------------------------------ update story ----------------------------- */
@@ -70,7 +69,6 @@ export default class ServeState {
     /* ------ Read the level blueprint and initialize the story and bricks ------ */
     initLevel(){
         this.levelManager.mapLevel(this.level)
-        this.storyMode = 1;
     }
     configureParams(){
         return{

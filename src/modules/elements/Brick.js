@@ -5,18 +5,13 @@ export default class Brick{
     #health
     #tiles
     constructor(x,y, type, container,w,h,pow =0) {
-
         this.height = h*TILE_SIZE
         this.width = w*TILE_SIZE
         this.x = x
         this.y = y
 
         this.brick = this.createBrick(); //html element
-        if (pow == 0){
-            this.pow = 0
-        }else{
-            this.pow = new PowerUp(pow); 
-        }
+        this.pow = (pow == 0 )? 0: new PowerUp(pow);
         this.type = type
         this.value = (this.height/TILE_SIZE)*(this.width/TILE_SIZE)
         this.#health = type
@@ -24,43 +19,38 @@ export default class Brick{
         this.#tiles = []
         this.createTiles();
         this.container = container
-
     }
+    /* ----------- // Only updates powerup if it is locked or falling ----------- */
+    /* -------------- other cases gets handled from pay/serve state ------------- */
     updatePow(delta, paddle){
-       if(this.pow !=0){
-            return this.pow.update(delta, paddle)
-        } 
-        return 0
+        if(this.pow == 0) return 0;
+        return this.pow.updateDeactivated(delta, paddle)
     }
-    // Triggers a hit on the brick, taking it out of play if at 0 health or
-    // changing its color otherwise.
+    /* -- Triggers a hit on the brick, taking it out of play if at 0 health or -- */
+    /* ---------------------- changing its color otherwise. --------------------- */
     hit(){
-        if(this.pow !=0 && this.pow.status == "locked"){
-            this.pow.drop();
-        }
+        if(this.pow?.status == "locked") this.pow.drop();
         this.#health --
-        if(this.#health<0){
-            if (this.type == 2){
-                sounds.list.glassBrickDestroyed.play()
-                sounds.list.glassBrickDestroyed.currentTime = 0;
-            }else {
-                sounds.list.brickDestroyed.play();
-                sounds.list.brickDestroyed.currentTime = 0;}
-            sounds.list.brickDestroyed.play();
-            sounds.list.brickDestroyed.currentTime = 0;
-            this.inPlay=false;
-            this.container.removeChild(this.brick);
-            return 1
-        }else{
+        /* ------------------------------ brick cracked ----------------------------- */
+        if(this.#health>=0){
             sounds.list.brickHit.play();
             sounds.list.brickHit.currentTime = 0;
-            this.#tiles.forEach(tile => {
-                tile.hit()
-            });
+            this.#tiles.forEach(tile =>tile.hit());
             return 0
         }
+        /* ----------------------------- brick destroyed ---------------------------- */
+        if (this.type == 2){
+            sounds.list.glassBrickDestroyed.play()
+            sounds.list.glassBrickDestroyed.currentTime = 0;
+        }else {
+            sounds.list.brickDestroyed.play();
+            sounds.list.brickDestroyed.currentTime = 0;
+        }
+        this.inPlay=false;
+        this.container.removeChild(this.brick);
+        return 1
     }
-    // Creates the brick and sets height/ width and position on Game screen
+    /* -- Creates the brick and sets height/ width and position on Game screen -- */
     createBrick(){
         let brick = document.createElement("div");
         brick.classList.add("brick");
@@ -70,7 +60,7 @@ export default class Brick{
         brick.style.setProperty("left", `${this.x}px`);
         return brick
     }
-    // Creates tiles and add to the brick
+    /* ------------------- Creates tiles and add to the brick ------------------- */
     createTiles(){
         for(let i= 0; i< this.width/TILE_SIZE * this.height/TILE_SIZE; i++){
             let tile = new Tile
@@ -78,7 +68,7 @@ export default class Brick{
             this.#tiles.push(tile)
         }
     }
-
+    /* -------------- Draws brick + tiles  + powerups on the screen ------------- */
     draw(){
         this.container.appendChild(this.brick)
         this.top = this.y
@@ -92,7 +82,6 @@ export default class Brick{
             let tileValue = 0;    
             this.#tiles.forEach(target=>{
                 // Check if tile to north->west->east->south
-                // resource https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673
                 if(Math.floor(target.pos.bottom) == Math.floor(currentTile.pos.top) &&
                  Math.floor(target.pos.right) == Math.floor(currentTile.pos.right)){
                     tileValue+=1

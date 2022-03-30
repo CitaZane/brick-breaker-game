@@ -1,4 +1,4 @@
-import { VIRTUAL_HEIGHT } from "../Constants.js";
+import { POWERUP_STATS, VIRTUAL_HEIGHT } from "../Constants.js";
 
 //  1- life
 export default class PowerUp{
@@ -9,8 +9,7 @@ export default class PowerUp{
         this.status = "locked" //use different statuses -> locked/ falling//active/lost
         this.pow = this.createPow(); //html elem
         this.dy = 0;//controlls falling
-        this.lifeSpan = 5 //seconds powerup active
-
+        this.lifeSpan = POWERUP_STATS[this.type].lifespan //seconds powerup active
     }
     get y() {
         return parseFloat(getComputedStyle(this.pow).getPropertyValue("--y"))
@@ -18,40 +17,39 @@ export default class PowerUp{
     set y(value) {
         this.pow.style.setProperty("--y", value)
     }
-    /* -------------------- if returns 1 -> start the powerup ------------------- */
-    update(delta=0, paddle){
-        if(this.status == "falling"){
-            this.y = this.y + this.dy * delta;
-            if(this.detectIfOfScreen())return 0;
-            return this.detectCollision(paddle)
-        }
-        if(this.status == "active"){
-            //time passed since activation
-            let timePassed = (new Date() - this.startTime ) /1000; 
-            if(timePassed>= this.lifeSpan){
-                console.log("Lost after", timePassed)
-                this.status = "lost" 
-            }
-        }
-        return 0;
+    /* ---------- update while powerup still bound to brick and falling --------- */
+    updateDeactivated(delta=0, paddle){
+        if(this.status != "falling") return 0;
+        this.y = this.y + this.dy * delta;
+        if(this.detectIfOfScreen())return 0;
+        return this.detectCollision(paddle)
     }
+    /* ---------------------- activate thus start the timer --------------------- */
     activate(){
-        this.startTime = new Date();
+        this.timer = 0;
         this.status = "active";
-        console.log("Activated")
         this.removeElement();
-        return this //activation code
+        return this //Sends back the powerup
     }
+    /* ---------------------- update when powerup in action --------------------- */
+    updateActivated(delta=0){
+        if(this.status != "active") return;
+        this.timer += delta //time passed since activation
+        if(this.timer>= this.lifeSpan)this.status = "lost" 
+    }
+    /* ------------------------ on brick hit drop powerup ----------------------- */
     drop(){
         this.dy = 200;
         this.status = "falling"
     }
+    /* ---------------- when falling detect of out of game screen --------------- */
     detectIfOfScreen(){
         if(this.y>= VIRTUAL_HEIGHT){
             this.status= "lost"
             this.removeElement();
         }
     }
+    /* ---------------------- catch if collides with paddle --------------------- */
     detectCollision(paddle){
          if (this.x + this.width >paddle.x && 
             this.x<paddle.x +paddle.width &&
