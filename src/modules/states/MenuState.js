@@ -45,7 +45,7 @@ export default class MenuState {
                 level: 1,
                 stats: new Stats(),
                 path: "menu",
-                paddle: new Paddle(),
+                paddle: new Paddle(1),
             });
         };
         if ( keysPressed.wasPressed(" ") && this.#menu[this.#chosen] === "highscores") {

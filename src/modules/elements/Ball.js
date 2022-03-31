@@ -105,17 +105,21 @@ export default class Ball {
         };
         /* ----------- Change ball movement based on how it hit the paddle ---------- */
         // if hit the paddle on left side
-        let multiplyer = 4
+        let range = 350 // changes max angle and speed for x axis
+        let multiplyer = range /100 
         if(this.x<paddle.x+(paddle.width/2) ){
-            this.#dx =50- multiplyer*(paddle.x + paddle.width/2 - this.x+this.#width/2);
+            let ballOffset = Math.round((paddle.x + paddle.width/2) - this.x+this.#width/2 )
+            this.#dx = Math.round((100* ballOffset / (paddle.width/2))* multiplyer*-1);
             // if hit the paddle on right side 
         }else if(this.x>paddle.x+(paddle.width/2)){
-            this.#dx = 50+  multiplyer*Math.abs(paddle.x + paddle.width/2 -this.x)
+            let ballOffset = Math.round(this.x+this.#width/2 -(paddle.x + paddle.width/2));
+            this.#dx = Math.round((100* ballOffset / (paddle.width/2))* multiplyer);
         }
         /* ------------- place ball above Y axis, so it doesnt get stuck ------------ */
         this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
         /* --------------------------- Reverse Y velocity --------------------------- */
         this.#dy = -this.#dy;
+        console.log(this.#dy, this.#dx)
         return true;
     }
     /* ----------- Main update - move the ball and bounce off the wals ---------- */

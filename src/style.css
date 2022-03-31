@@ -99,14 +99,14 @@ div {
 
 .paddle {
   --x: 0;
-
+  
   position: absolute;
   background-image: url("../graphics/paddle.png");
-  bottom: 28px;
+  /* bottom: 28px; */
+  /* width: 200px; */
+  /* height: 42px; */
   transform: translate(calc(var(--x) * 1px));
 
-  width: 200px;
-  height: 42px;
 }
 .ball {
   --x: 0;
