@@ -13,6 +13,7 @@ export default class Ball {
         this.#dy = 0;
         this.reset();
         this.lost = false; //holds value false if ball in the game/ true if lost
+        this.super = false;
     }
 
     get x() {
@@ -117,7 +118,6 @@ export default class Ball {
         this.y = VIRTUAL_HEIGHT - PADDLE_HIT_HEIGHT - this.#height;
         /* --------------------------- Reverse Y velocity --------------------------- */
         this.#dy = -this.#dy;
-        console.log(this.#dy, this.#dx)
         return true;
     }
     /* ----------- Main update - move the ball and bounce off the wals ---------- */
@@ -155,6 +155,14 @@ export default class Ball {
         if (this.type+change <0 || this.type+change > BALL_STATS.length -1)return;
         this.type +=change;
         this.updateStats()
+    }
+    activateSuper(){
+        this.ball.style.backgroundPosition = `-${BALL_STATS[this.type].offsetX}px  -${this.#height}px`;
+        this.super = true;
+    }
+    deactivateSuper(){
+        this.ball.style.backgroundPosition = `-${BALL_STATS[this.type].offsetX}px  0px`;
+        this.super = false;
     }
 
         updateStats(){

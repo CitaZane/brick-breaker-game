@@ -13,7 +13,8 @@ export default class ServeState {
         this.stats = params.stats;
         this.ball = (params.path=="pause") ? params.ball : new Ball();
         this.level = params.level;
-        this.path = params.path
+        this.path = params.path;
+        this.activePow = [];
         // Create health, score, pause container, storyLine
         if (params.path === "menu") {
             getHtml("./configs/gameSetup.html")
@@ -36,23 +37,39 @@ export default class ServeState {
             this.levelManager.bricks.forEach(brick => {
                 let pow = brick.updatePow(delta, this.paddle)
                 if(pow!=0){
-                    switch (pow.type) {
-                        case 1: //Extra life
-                            this.stats.updateHealth(1)
-                            break;
-                        case 2: //paddle increase
-                            this.paddle.changeSize(1);
-                        break;
-                        case 3: //paddle decrease
-                            this.paddle.changeSize(-1);
-                        break;
-                        default:
-                            this.activePow.push(pow)
-                            break;
-                    }
-                } 
+               switch (pow.type) {
+                   case 1: //Extra life
+                       this.stats.updateHealth(1)
+                       break;
+                    case 2: //paddle increase
+                        this.paddle.changeSize(1);
+                    break;
+                    case 3: //paddle decrease
+                        this.paddle.changeSize(-1);
+                    break;
+                    case 4: //ball increase
+                        this.ball.changeSize(1);
+                    break;
+                    case 5: //ball decrease
+                        this.ball.changeSize(-1);
+                    break;
+                    case 6: //Super ball
+                        this.ball.activateSuper();
+                        this.activePow.push(pow)
+                    break;
+                   default:
+                       this.activePow.push(pow)
+                       break;
+               }
+            }
             });
         }
+        this.activePow.forEach(pow => {
+        pow.updateActivated(delta);
+            if(pow.status == "lost" && pow.type ==6)this.ball.deactivateSuper();    
+        });
+        /* -------------------------- clean up poweruparray ------------------------- */
+        this.activePow = this.activePow.filter(pow => pow.status != "lost")
         /* ------------------------------ update story ----------------------------- */
         if(this.levelManager?.story?.active){
             if(this.levelManager.story.currentFinished()){

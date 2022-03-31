@@ -40,9 +40,11 @@ export default class PlayState {
                     case 4: //ball increase
                         this.ball.changeSize(1);
                     break;
-                    case 5: //ball increase
+                    case 5: //ball decrease
                         this.ball.changeSize(-1);
                     break;
+                    case 6: //Super ball
+                        this.ball.activateSuper();
                    default:
                        this.activePow.push(pow)
                        break;
@@ -51,7 +53,10 @@ export default class PlayState {
         });
         this.activePow.forEach(pow => {
                 pow.updateActivated(delta);
+                if(pow.status == "lost" && pow.type ==6)this.ball.deactivateSuper();    
             });
+        /* -------------------------- clean up poweruparray ------------------------- */
+        this.activePow = this.activePow.filter(pow => pow.status != "lost")
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {
@@ -76,9 +81,9 @@ export default class PlayState {
             /* ------------ Detect collision across all bricks with the ball ------------ */
             this.bricks.forEach(brick => {
                 if(brick.inPlay && this.ball.collides(brick)){
-                    let hitResult = brick.hit(); // Brick hit returns 1 if brick destroyed, 0 if not
+                    let hitResult = brick.hit(this.ball.super); // Brick hit returns 1 if brick destroyed, 0 if not
                     this.stats.updateScore(hitResult,brick.value, brick.type)
-                    this.ball.brickHit(brick) // change ball direction
+                    if(!this.ball.super)this.ball.brickHit(brick) // change ball direction
                 }
                 if(brick.inPlay) this.bricksInGame = true; // keep track when all bricks are destroyed
             });

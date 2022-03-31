@@ -28,11 +28,11 @@ export default class Brick{
     }
     /* -- Triggers a hit on the brick, taking it out of play if at 0 health or -- */
     /* ---------------------- changing its color otherwise. --------------------- */
-    hit(){
+    hit(superBall){
         if(this.pow?.status == "locked") this.pow.drop();
         this.#health --
         /* ------------------------------ brick cracked ----------------------------- */
-        if(this.#health>=0){
+        if(this.#health>=0 && !superBall){
             sounds.list.brickHit.play();
             sounds.list.brickHit.currentTime = 0;
             this.#tiles.forEach(tile =>tile.hit());

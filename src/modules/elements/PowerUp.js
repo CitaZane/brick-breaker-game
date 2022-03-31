@@ -26,6 +26,7 @@ export default class PowerUp{
     }
     /* ---------------------- activate thus start the timer --------------------- */
     activate(){
+        this.showPowerup();
         this.timer = 0;
         this.status = "active";
         this.removeElement();
@@ -81,4 +82,13 @@ export default class PowerUp{
          brickContainer.appendChild(this.pow)
 
     }
+    showPowerup(){
+        document.querySelector("#powerUp").innerHTML = POWERUP_STATS[this.type].name
+        document.querySelector(".powerUpContainer").style.visibility = "visible"
+        setTimeout(hidePowerup, 2000)
+    }
+}
+
+function hidePowerup(){
+    document.querySelector(".powerUpContainer").style.visibility = "hidden"
 }

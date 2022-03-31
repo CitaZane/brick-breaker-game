@@ -163,6 +163,25 @@ div {
   background-image: url("../graphics/pow.png");
   transform: translateY(calc(var(--y) * 1px));
 }
+.powerUpContainer {
+  position: absolute;
+  top: 510px;
+  width: 100%;
+  text-align: center;
+  animation: flash 1.2s linear infinite;
+  visibility: hidden;
+}
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 /* ------------------------------- storyline ------------------------------ */
 .storyContainer {
   position: absolute;

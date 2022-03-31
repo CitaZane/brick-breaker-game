@@ -20,10 +20,9 @@ export const TILE_SIZE = 40
 /* ------------- 0 index left empty => coresponds to no powerup ------------- */
 export const POWERUP_STATS = [
     {name:"", lifespan:0},
-    {name:"Cannonball", lifespan:0},
-    {name:"Paddle Increase", lifespan: 0},
-    {name:"Paddle Decrease", lifespan: 0},
-    {name:"Ball Increase", lifespan: 0},
-    {name:"Ball Decrease", lifespan: 0},
-    {name:"Super Ball", lifespan: 10},
-    {name:"Paddle Decrease", lifespan: 0}]
+    {name:"New Cannonball", lifespan:0},
+    {name:"Bigger Ship", lifespan: 0},
+    {name:"Smaller Ship", lifespan: 0},
+    {name:"Larger Cannonball", lifespan: 0},
+    {name:"Smaller Cannonball", lifespan: 0},
+    {name:"Super Ball", lifespan: 5}]
