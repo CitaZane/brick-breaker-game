@@ -35,7 +35,22 @@ export default class ServeState {
             this.activePow.forEach(pow =>pow.updateActivated(delta));
             this.levelManager.bricks.forEach(brick => {
                 let pow = brick.updatePow(delta, this.paddle)
-                if(pow!=0)this.activePow.push(pow) 
+                if(pow!=0){
+                    switch (pow.type) {
+                        case 1: //Extra life
+                            this.stats.updateHealth(1)
+                            break;
+                        case 2: //paddle increase
+                            this.paddle.changeSize(1);
+                        break;
+                        case 3: //paddle decrease
+                            this.paddle.changeSize(-1);
+                        break;
+                        default:
+                            this.activePow.push(pow)
+                            break;
+                    }
+                } 
             });
         }
         /* ------------------------------ update story ----------------------------- */

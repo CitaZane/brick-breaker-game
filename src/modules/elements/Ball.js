@@ -1,13 +1,13 @@
-import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT} from "../Constants.js";
+import {GAME_CONTAINER, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, PADDLE_HIT_HEIGHT, BALL_STATS} from "../Constants.js";
 export default class Ball {
     #dx
     #dy
     #width
     #height
     constructor() {
+        this.type = 1;
         this.ball = this.createBall();
-        this.#width = parseFloat(getComputedStyle(this.ball).getPropertyValue("width"));
-        this.#height = parseFloat(getComputedStyle(this.ball).getPropertyValue("height"));
+        this.updateStats();
         // keep track of velocity in both directions
         this.#dx = 0;
         this.#dy = 0;
@@ -42,9 +42,7 @@ export default class Ball {
      /* ----------------------- launch ball off the paddle ----------------------- */
     launch(){  
         this.#dx = 0
-        // this.#dx = getRandomInt(-200, 200);
         this.#dy = -350
-        // this.#dy = getRandomInt(-200, -200);
     }
     /* ------------------------- detect if ball is lost ------------------------- */
     outOfScreen() {
@@ -150,5 +148,20 @@ export default class Ball {
         ball.classList.add("ball")
         GAME_CONTAINER.appendChild(ball)
         return ball
-    }  
+    } 
+    changeSize(change){
+        /* -------------- // Change paddle based on change (+ 1 or -1) -------------- */
+        /* ---------------------- first check if in bounds 0-2 ---------------------- */
+        if (this.type+change <0 || this.type+change > BALL_STATS.length -1)return;
+        this.type +=change;
+        this.updateStats()
+    }
+
+        updateStats(){
+        this.ball.style.width = `${BALL_STATS[this.type].size}px`
+        this.ball.style.height = `${BALL_STATS[this.type].size}px`
+        this.ball.style.backgroundPosition = `-${BALL_STATS[this.type].offsetX}px  0px`
+        this.#width = BALL_STATS[this.type].size;
+        this.#height = BALL_STATS[this.type].size;
+    } 
 }

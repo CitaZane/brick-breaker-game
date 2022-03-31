@@ -37,6 +37,12 @@ export default class PlayState {
                     case 3: //paddle decrease
                         this.paddle.changeSize(-1);
                     break;
+                    case 4: //ball increase
+                        this.ball.changeSize(1);
+                    break;
+                    case 5: //ball increase
+                        this.ball.changeSize(-1);
+                    break;
                    default:
                        this.activePow.push(pow)
                        break;
