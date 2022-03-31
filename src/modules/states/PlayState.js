@@ -25,15 +25,18 @@ export default class PlayState {
         this.stats.updateTime(delta);
         this.bricks.forEach(brick => {
            let pow = brick.updatePow(delta, this.paddle)
-
            if(pow!=0){
-               this.activePow.push(pow)
-               console.log(this.activePow)
-           }
-           this.activePow.forEach(pow => {
+            //    Activate powerups with 0 lifespan
+                if(pow.type==1){
+                    this.stats.updateHealth(1)
+                }else{
+                this.activePow.push(pow)
+            }
+            }
+        });
+        this.activePow.forEach(pow => {
                 pow.updateActivated(delta);
             });
-        });
         /* ------------------- check three possible ball states -> ------------------ */
         /* --- collision with paddle -ball out of screen - ball colides with brick -- */
         if (this.ball.collides(this.paddle)) {

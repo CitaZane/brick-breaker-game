@@ -125,13 +125,14 @@ div {
   position: absolute;
   top: 620px;
   left: 15px;
+  display: flex;
 }
 .health {
   background-image: url("../graphics/ball.png");
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  display: inline-block;
+  margin-left: 10px;
 }
 .timeContainer {
   position: absolute;
