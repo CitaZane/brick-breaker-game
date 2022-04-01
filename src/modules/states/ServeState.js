@@ -37,6 +37,7 @@ export default class ServeState {
             this.levelManager.bricks.forEach(brick => {
                 let pow = brick.updatePow(delta, this.paddle)
                 if(pow!=0){
+                    sounds.list.powerUp.play()
                switch (pow.type) {
                    case 1: //Extra life
                        this.stats.updateHealth(1)

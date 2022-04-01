@@ -14,9 +14,11 @@ export default class HighscoreState {
     }
     update() {
         if (keysPressed.wasPressed("Escape")) {
+            sounds.list.confirm.play()
             stateMachine.change("menu");
         }
         if(keysPressed.wasPressed("ArrowRight")){
+            sounds.list.confirm.play()
             keysPressed.clear();
             this.page++
             fetch(`${URL}/highscores?page=${this.page}`)
@@ -24,7 +26,6 @@ export default class HighscoreState {
             .then((data)=>{
                 if(data.data.length>0){
                     this.clearTable();
-                    console.log(data.data)
                     this.generateTable(data)
                 }else{
                    this.page-- 
@@ -32,6 +33,7 @@ export default class HighscoreState {
             })
         }
         if(keysPressed.wasPressed("ArrowLeft")){
+            sounds.list.confirm.play()
             keysPressed.clear();
             if(this.page>1){
                 this.page--

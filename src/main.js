@@ -38,6 +38,7 @@ window.sounds = new Sound({
     pause: new Audio(),
     confirm: new Audio(),
     victory: new Audio(),
+    powerUp: new Audio(),
     type: new Audio()
 }, new Audio())
 

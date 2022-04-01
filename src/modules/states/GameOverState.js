@@ -67,6 +67,9 @@ export default class GameOverState {
                 score : score
             })
         })
-        .then(()=>stateMachine.change("highscore"))
+        .then(()=>{
+            sounds.list.confirm.play()
+            stateMachine.change("highscore")
+        })
     }
 } 

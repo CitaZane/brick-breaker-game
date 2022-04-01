@@ -27,6 +27,7 @@ export default class PlayState {
            let pow = brick.updatePow(delta, this.paddle)
            /* ---------------------------- activate powerups --------------------------- */
            if(pow!=0){
+               sounds.list.powerUp.play()
                switch (pow.type) {
                    case 1: //Extra life
                        this.stats.updateHealth(1)
