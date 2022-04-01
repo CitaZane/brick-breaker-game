@@ -1,19 +1,23 @@
 const db = require('./db.js');
 const helper = require('../helper.js');
-const config = require('../config.js');
+const listPerPage = 10;
 
 /* --------------------- geting multiple results from db -------------------- */
 async function getMultiple(page = 1){
-  const offset = helper.getOffset(page, config.listPerPage);
-  const rows = await db.query(
-    `SELECT name, score 
-    FROM highscores 
-    ORDER BY score DESC
-    LIMIT ${offset},${config.listPerPage}`
-  );
-  const data = helper.emptyOrRows(rows);
+  const offset = helper.getOffset(page, listPerPage);
+  let data= []
   const meta = {page};
-
+  await db.open('../game.db')
+  let sql = `SELECT name, score 
+      FROM highscores 
+      ORDER BY score DESC
+      LIMIT ${offset},${listPerPage}`
+    let result = await db.all(sql, []);
+    result.forEach(function(row) {
+        let res = {name:row.name, score: row.score}
+        data.push(res)   
+    })
+    db.close();
   return {
     data,
     meta
@@ -21,31 +25,14 @@ async function getMultiple(page = 1){
 }
 /* ------------------------- insert new score in db ------------------------- */
 async function addNew(highscore){
-    const result = await db.query(
-        `INSERT INTO highscores(name, score) VALUES ('${highscore.name}', ${highscore.score})`
-    )
-    let message = 'Error in adding new highscore';
-
-    if (result.affectedRows) {
-    message = 'High score addedsuccessfully';
-    return {message};
-  }
+  let sql = `INSERT INTO highscores(name, score) VALUES ('${highscore.name}', ${highscore.score})`
+  await db.open('../game.db')
+  let result = await db.run(sql)
+  if(result) console.log("New Score added to leaderboard");
+  db.close();
 }
 
 module.exports = {
   getMultiple,
   addNew
 }
-/* ----------------------- query for creating siple db table ---------------------- */
-/*
-Create table for highscores
-function createTable(){
-    let query = 'CREATE TABLE highscores(id int not null auto_increment primary key, name varchar(255), score int)';
-    db.query(query,(err, response) => {
-        if(err) {
-            console.error(err);
-            return;
-        }
-    });
-}
-*/

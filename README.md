@@ -22,7 +22,7 @@ The game is created to be simply enjoyed.
 - node.js
 - npm
 - express
-- mysql2 (used to connect to local mysql database))
+- sqlite3
 - body-parser
 
 ### Installing
@@ -41,7 +41,6 @@ cd server
 
 ### Executing program
 
-- Start running the mysql database (connection to db still to be researched)
 - Start the server
 
 ```
@@ -61,13 +60,14 @@ CitaZane
 - [Awesome pixelart - self created](https://www.behance.net/zanekrmia)
 - [Bitmasking to autotile bricks](https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673)
 - [Great course about Break-Out game from CS50 / Introduction to Game Development](https://www.youtube.com/watch?v=F86edI_EF3s&t=5993s)
+- [sqlite and node.js communication](https://www.scriptol.com/sql/sqlite-async-await.php)
 
 ## What I learned
 
 - JS language -> concept of classes and modules, DOM manipulation
 - node.js / express -> starting a simple server and creating endpoints
 - Using JSON -> storing level blueprints and fetching them.
-- MYSQL -> creating a database and comunication. Basic queries.
+- SQLITE/SQL -> creating a database and comunication. Basic queries.
 - Using/creating tilesets.
 - Concept of sprite sheets.
 - Concept of State Machine in gaming.

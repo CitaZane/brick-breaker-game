@@ -1,12 +1,44 @@
-const mysql = require('mysql2/promise');
-const config = require('../config.js');
+const sqlite3 = require('sqlite3').verbose();
+let db
+exports.db = db
 
-async function query(sql, params) {
-  const connection = await mysql.createConnection(config.db); //connect to database
-  const [results, ] = await connection.execute(sql, params); // execute query
-  return results; // return results
+exports.open=function(path) {
+    return new Promise(function(resolve) {
+    this.db = new sqlite3.Database(path, 
+        function(err) {
+            if(err) reject("Open error: "+ err.message)
+            else    resolve(path + " opened")
+        }
+    )   
+    })
 }
+/* --------------------- any query: insert/delete/update -------------------- */
+exports.run=function(query) {
+    return new Promise(function(resolve, reject) {
+        this.db.run(query, 
+            function(err)  {
+                if(err) reject(err.message)
+                else    resolve(true)
+        })
+    })    
+}
+ /* ---------------------------- set of rows read ---------------------------- */
+exports.all=function(query, params) {
+    return new Promise(function(resolve, reject) {
+        if(params == undefined) params=[]
 
-module.exports = {
-  query
+        this.db.all(query, params, function(err, rows)  {
+            if(err) reject("Read error: " + err.message)
+            else {
+                resolve(rows)
+            }
+        })
+    }) 
+}
+/* ------------------------ close database connectio ------------------------ */
+exports.close=function() {
+    return new Promise(function(resolve, reject) {
+        this.db.close()
+        resolve(true)
+    }) 
 }
