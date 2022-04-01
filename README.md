@@ -75,16 +75,11 @@ CitaZane
 - Adding sound to website.
 - Improved artistic capability "hopefully"
 
-<!-- {
-"level": 1,
-"intro": ["first intro line", "second intro line"],
-"bricks": {
-"0": [
-{ "x": 0, "y": 0, "w": 3, "h": 3 },
-{ "x": 1, "y": 0, "w": 1, "h": 1 },
-{ "x": 2, "y": 0, "w": 2, "h": 1 }
-],
-"1": [{ "x": 3, "y": 1, "w": 1, "h": 1 }],
-"2": [{ "x": 4, "y": 0, "w": 3, "h": 3 }]
-}
-} -->
+## To be improved
+
+- Make brick and ball colision more responsive on corners
+- Make ball / paddle collision more precise on corners
+- Show players place in leaderboard
+- Autofill players name after first game
+- Create typewriting stop on pause menu
+- Make powerup stacking more smooth
