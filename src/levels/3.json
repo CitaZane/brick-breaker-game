@@ -6,7 +6,7 @@
     "Parrot: Oh, matey, that be th' sun reflected from th' glass windows. Shiver me timbers! ye shall destroy th' glass t' see clearly again."
   ],
   "bricks": {
-    "0": [
+    "2": [
       { "x": 0, "y": 0, "w": 1, "h": 3 },
       { "x": 1, "y": 0, "w": 3, "h": 3 },
       { "x": 4, "y": 0, "w": 1, "h": 3 },

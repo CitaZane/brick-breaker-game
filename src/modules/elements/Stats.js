@@ -4,6 +4,7 @@ export default class Stats{
         this.time=0;
         this.health = 3;
         this.timeBonus=0;
+        this.multiply = 1; //value for double score powerup
     }
     /* --------------------------------- update --------------------------------- */
     updateTime(delta){
@@ -21,11 +22,13 @@ export default class Stats{
     }
     // BrickDestroyed holds 1 if brick destroyed, 0 if only cracked
     updateScore(brickDestroyed, brickValue, brickType){
+        let value
         if(brickDestroyed == 1){
-            this.score += 100 + brickType*50 - brickValue *10
+            value = (100 + brickType*50 - brickValue *10)
         }else{
-            this.score += brickType * 25 - brickValue *2
+            value = (brickType * 25 - brickValue *2)
         }
+        this.score += value*this.multiply
         this.renderScore();
     }
     /* --------------------------------- render --------------------------------- */

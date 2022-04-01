@@ -25,4 +25,5 @@ export const POWERUP_STATS = [
     {name:"Smaller Ship", lifespan: 0},
     {name:"Larger Cannonball", lifespan: 0},
     {name:"Smaller Cannonball", lifespan: 0},
-    {name:"Super Ball", lifespan: 5}]
+    {name:"Super Ball", lifespan: 5},
+    {name:"Double Score", lifespan: 10}]

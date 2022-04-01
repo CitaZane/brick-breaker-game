@@ -46,6 +46,8 @@ export default class PlayState {
                     break;
                     case 6: //Super ball
                         this.ball.activateSuper();
+                    case 7: //double score
+                        this.stats.multiply = 2;
                    default:
                        this.activePow.push(pow)
                        break;
@@ -54,7 +56,8 @@ export default class PlayState {
         });
         this.activePow.forEach(pow => {
                 pow.updateActivated(delta);
-                if(pow.status == "lost" && pow.type ==6)this.ball.deactivateSuper();    
+                if(pow.status == "lost" && pow.type ==6)this.ball.deactivateSuper(); 
+                if(pow.status == "lost" && pow.type ==7)this.stats.multiply =1;    
             });
         /* -------------------------- clean up poweruparray ------------------------- */
         this.activePow = this.activePow.filter(pow => pow.status != "lost")
