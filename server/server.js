@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const highscoresRouter = require("./routes/highscores.js");
 
 /* ------------------ "use" works as middleware. as a stack ----------------- */
@@ -20,8 +20,8 @@ app.use((err, req, res, next) => {
   return;
 });
 
-app.listen(PORT, () => {
-    console.log(`Game server running at http://localhost:${PORT}`)
+ app.listen(PORT, () => {
+    console.log(`Game server is listening on port ${PORT}`)
 });
 
 
