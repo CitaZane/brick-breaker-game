@@ -1,4 +1,5 @@
-export const URL = process.env.URL || "http://localhost:3000"
+export const URL = "https://agile-waters-68855.herokuapp.com"
+// export const URL = "http://localhost:3000"
 export const VIRTUAL_HEIGHT = 720
 export const VIRTUAL_WIDTH = 1280
 

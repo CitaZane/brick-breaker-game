@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const highscoresRouter = require("./routes/highscores.js");
 
+
 /* ------------------ "use" works as middleware. as a stack ----------------- */
 app.use(express.json()); //This method is used to parse the incoming requests with JSON.
 app.use(bodyParser.urlencoded({extended:true})); // for accessing req.body
