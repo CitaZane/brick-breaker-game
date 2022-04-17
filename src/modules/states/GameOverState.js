@@ -67,9 +67,11 @@ export default class GameOverState {
                 score : score
             })
         })
+        .then((res) => console.log("After post:  ", res))
         .then(()=>{
             sounds.list.confirm.play()
             stateMachine.change("highscore")
         })
+        .catch(error => console.log("Catch", erroe))
     }
 } 
