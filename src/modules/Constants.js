@@ -1,4 +1,4 @@
-export const URL = "http://localhost:3000"
+export const URL = process.env.URL || "http://localhost:3000"
 export const VIRTUAL_HEIGHT = 720
 export const VIRTUAL_WIDTH = 1280
 
