@@ -60,18 +60,17 @@ export default class GameOverState {
             method: "POST",
             headers:{
                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json' ,
             },
             body: JSON.stringify({
                 name: player,
                 score : score
             })
         })
-        .then((res) => console.log("After post:  ", res))
         .then(()=>{
             sounds.list.confirm.play()
             stateMachine.change("highscore")
         })
-        .catch(error => console.log("Catch", erroe))
+        .catch(error => console.log("Catch", error))
     }
 } 
