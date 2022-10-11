@@ -1,5 +1,4 @@
-export const URL = "https://agile-waters-68855.herokuapp.com"
-// export const URL = "http://localhost:3000"
+export const URL = window.location.href
 export const VIRTUAL_HEIGHT = 720
 export const VIRTUAL_WIDTH = 1280
 
