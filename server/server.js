@@ -3,15 +3,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const highscoresRouter = require("./routes/highscores.js");
 
+const highscoresRouter = require("./routes/highscores.js");
 
 /* ------------------ "use" works as middleware. as a stack ----------------- */
 app.use(express.json()); //This method is used to parse the incoming requests with JSON.
 app.use(bodyParser.urlencoded({extended:true})); // for accessing req.body
 
 app.use(express.static('../src')); // sering our main src folder for game
-app.use('/highscores', highscoresRouter); // route for accessing highscore information
+app.use('/api/highscores', highscoresRouter); // route for accessing highscore information
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

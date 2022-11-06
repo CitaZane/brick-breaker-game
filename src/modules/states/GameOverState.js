@@ -56,7 +56,7 @@ export default class GameOverState {
         e.preventDefault();
         const player = document.getElementById("playerName").value;
         const score = document.querySelector("#highscoreForm").getAttribute("score");
-        fetch(`${URL}highscores`,{
+        fetch(`${URL}api/highscores`,{
             method: "POST",
             headers:{
                'Accept': 'application/json',

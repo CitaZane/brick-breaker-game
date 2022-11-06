@@ -7,7 +7,7 @@ export default class HighscoreState {
     }
     enter() {
         /* ----------------------- fetch data and create table ---------------------- */
-        fetch(`${URL}highscores`)
+        fetch(`${URL}api/highscores`)
         .then((res)=>res.json())
         .then((data)=> this.generateTable(data))
 
@@ -21,7 +21,7 @@ export default class HighscoreState {
             sounds.list.confirm.play()
             keysPressed.clear();
             this.page++
-            fetch(`${URL}highscores?page=${this.page}`)
+            fetch(`${URL}api/highscores?page=${this.page}`)
             .then((res)=>res.json())
             .then((data)=>{
                 if(data.data.length>0){
@@ -37,7 +37,7 @@ export default class HighscoreState {
             keysPressed.clear();
             if(this.page>1){
                 this.page--
-                fetch(`${URL}highscores?page=${this.page}`)
+                fetch(`${URL}api/highscores?page=${this.page}`)
                 .then((res)=>res.json())
                 .then((data)=>{
                     if(data.data.length>0){

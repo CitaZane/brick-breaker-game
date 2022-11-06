@@ -22,7 +22,7 @@ The game is created to be simply enjoyed.
 - node.js
 - npm
 - express
-- sqlite3
+<!-- - sqlite3 -->
 - body-parser
 
 ### Installing
@@ -33,18 +33,12 @@ The game is created to be simply enjoyed.
 npm install
 ```
 
-- Navigate into server folder
-
-```
-cd server
-```
-
 ### Executing program
 
 - Start the server
 
 ```
-node server.js
+npm run start
 ```
 
 - Open the browser -> `localhost:3000`
@@ -67,7 +61,7 @@ CitaZane
 - JS language -> concept of classes and modules, DOM manipulation
 - node.js / express -> starting a simple server and creating endpoints
 - Using JSON -> storing level blueprints and fetching them.
-- SQLITE/SQL -> creating a database and comunication. Basic queries.
+<!-- - SQLITE/SQL -> creating a database and comunication. Basic queries. -->
 - Using/creating tilesets.
 - Concept of sprite sheets.
 - Concept of State Machine in gaming.
