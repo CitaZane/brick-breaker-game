@@ -2,6 +2,8 @@
 
 Simple single player game based on rules/ funcionality of such arcade games as - "Arkanoid" and "Breakout". Created as a project for learning new tools, languages and concepts.
 
+You can try to check it out [here](https://agile-waters-68855.herokuapp.com/) 
+
 ## Description
 
 The projcets theme goes like this ->
