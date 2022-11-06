@@ -56,19 +56,8 @@ export default class GameOverState {
         e.preventDefault();
         const player = document.getElementById("playerName").value;
         const score = document.querySelector("#highscoreForm").getAttribute("score");
-        fetch(`${URL}api/highscores`,{
-            method: "POST",
-            headers:{
-               'Accept': 'application/json',
-                'Content-Type': 'application/json' ,
-            },
-            body: JSON.stringify({
-                name: player,
-                score : score
-            })
-        })
+        fetch(`${URL}api/addScore?name=${player}&score=${score}`)
         .then(()=>{
-            console.log("Added new result")
             sounds.list.confirm.play()
             stateMachine.change("highscore")
         })

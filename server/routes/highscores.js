@@ -13,14 +13,14 @@ router.get('/', async function(req, res, next) {
   }
 });
 /* ----------------------------- POST highscore ---------------------------- */
-router.post('/', async function(req, res, next){
-  try {
-    res.json(await highscores.addNew(req.body));
-  } catch (err) {
-    console.error(`Error`, err.message);
-    next(err);
-  }
-})
+// router.post('/', async function(req, res, next){
+//   try {
+//     res.json(await highscores.addNew(req.body));
+//   } catch (err) {
+//     console.error(`Error`, err.message);
+//     next(err);
+//   }
+// })
 
 
 module.exports = router;

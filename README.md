@@ -77,3 +77,4 @@ CitaZane
 - Autofill players name after first game
 - Create typewriting stop on pause menu
 - Make powerup stacking more smooth
+- For simple deploy for score handling used GET request. Should use POST
